@@ -1,0 +1,27 @@
+Add simple product by ID
+
+
+/path/to/app/checkout/cart/add?product=[id]&qty=[qty]
+
+/path/to/magento/checkout/cart/add?product=$id&qty=$qty&options[$id]=$value //with custom options
+
+=================================================================================================
+
+Add simple product with SKU
+
+<?php
+include_once '../app/Mage.php'; //include mage core
+Mage::app();
+Mage::getSingleton('core/session', array('name' => 'frontend')); //get current session
+
+$cProd = Mage::getModel('catalog/product'); //call catalog
+$id = $cProd->getIdBySku("125529876");  //get sku = 125529876
+
+header('Location: '. Mage::getUrl('checkout/cart/add', array('product' => $id))); //redirect to add to cart
+
+
+?>
+
+
+Ref:
+http://www.magentocommerce.com/wiki/4_-_themes_and_template_customization/catalog/adding_a_product_to_the_cart_via_querystring

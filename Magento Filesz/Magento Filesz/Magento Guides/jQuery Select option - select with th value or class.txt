@@ -1,0 +1,11 @@
+var jq = jQuery.noConflict();
+
+jq( document ).ready(function() {
+  jq(".cityfield").hide();
+  jq(".statefield").hide();
+});
+
+var title = any-variable-blah-blah-blah
+
+
+jq('.class option[value="'+title+'"]').prop('selected',true); //this will select the option that has the variable 'title'

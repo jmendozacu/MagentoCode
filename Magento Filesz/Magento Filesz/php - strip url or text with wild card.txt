@@ -1,0 +1,12 @@
+
+example url:
+
+$cur_url = http://50.116.105.33/~webeself/index.php/marketplacepartner/store?id=45
+
+
+$cur_url = preg_replace('/.*=/', '', $cur_url);
+
+echo '<br/>'.$cur_url; //output is 45
+
+
+

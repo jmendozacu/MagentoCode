@@ -1,0 +1,8 @@
+http://archmagento.com/magentotest/index.php/admin/
+admin
+admin123
+
+
+archmagento.com
+magentoini
+admin123

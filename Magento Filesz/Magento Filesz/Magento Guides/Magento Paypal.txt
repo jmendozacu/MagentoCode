@@ -1,0 +1,15 @@
+PayPal Express Checkout 
+- when your customers check out, they will be directed to a page that requires them to log into their PayPal account or create a new one. 
+Therefore, this is the best option if you anticipate that most of your customers either have a PayPal account or will sign up for an account on checkout.
+It may also improve sales; according to PayPal’s website, the Express Checkout button "can increase sales by 14% on average*" 
+and has "conversion rates [that] are 23% higher than standard checkout at some of today's largest online retailers.**"
+
+PayPal Website Payments Standard
+- when your customers check out, they will be directed to a page that allows them to log into their PayPal account or pay by credit card without 
+having to sign up for a PayPal account. 
+This is the best option if you anticipate that most of your customers will not want to sign up for a PayPal account.
+
+
+
+Creating Paypals buttons
+http://www.crearegroup-ecommerce.co.uk/blog/paypal-news/ecommerce-with-paypal-buttons.php

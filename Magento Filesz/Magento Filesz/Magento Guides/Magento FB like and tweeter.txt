@@ -1,0 +1,11 @@
+<div id="fb-root"></div>
+<!--Facebook like button code starts here  -->
+<?php $loc=Mage::app()->getLocale()->getDefaultLocale(); 
+  $source = 'http://connect.facebook.net/'.$loc.'/all.js#appId=181097698614858&amp;xfbml=1';?>
+<script src="<?php echo $source; ?>"></script>
+<fb:like href="<?php Mage::helper('core/url')->getCurrentUrl() ?>" send="false" show_faces="false"></fb:like>
+<!--Facebook like button code ends here  -->
+		
+<div class="tweet">
+	<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php ?>" data-text="<?php ?>" data-count="horizontal" data-via="jakerutter">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>

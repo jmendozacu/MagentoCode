@@ -1,0 +1,9 @@
+$cat_id = 345;
+
+$category = Mage::getModel('catalog/category')->load($cat_id);
+$collection = $category->getProductCollection()->addAttributeToSort('position');
+Mage::getModel('catalog/layer')->prepareProductCollection($collection);
+
+foreach ($collection as $product) {
+    var_dump( $product->getName() );
+}

@@ -1,0 +1,15 @@
+
+<?php
+$orderCollection = Mage::getModel('sales/order')->getCollection(); //Get order
+$orders = $orderCollection->addAttributeToFilter("customer_id", Mage::getSingleton('customer/session')->getCustomerId())->addAttributeToFilter('state', 'complete'); //Get orders that have 'state' completed from current customer id
+
+		$purchased = array(); // will contain IDs of purchased items
+			foreach ($orders as $order){
+				$items = $order->getAllItems();
+				foreach ($items as $item) // $purchased[] = $item->getProductId();        
+					//echo $item->getProductId().'<br/>';
+					//echo 'Name:'.$item->getName().'<br/>';
+					//if ($item->getProductId()=='646') { $emember=1;//echo 'Enterprise Member';}
+		}
+	  }
+?>

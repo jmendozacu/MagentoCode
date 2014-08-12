@@ -1,0 +1,47 @@
+//List cart items
+$cart = Mage::getModel('checkout/cart')->getQuote();
+
+foreach ($cart->getAllItems() as $item) {
+        	$productName = $item->getProduct()->getName(); // Product name
+		$productPrice = $item->getProduct()->getPrice(); // Product Price
+		$i=$i++;
+	  echo '<br/>Item #'.$i.'-'.$productName.' Price='.$productPrice;
+	}
+
+
+$grandTotal = $cart->getGrandTotal();
+
+$subTotal =  $cart->getSubtotal();
+
+OR
+
+$totals =  $cart->getTotals();
+
+$subtotal = $totals["subtotal"]->getValue();
+
+$Discount = $totals["discount"]->getValue();
+
+====================================================
+
+$totalItemsInCart = Mage::helper(‘checkout/cart’)->getItemsCount(); //total items in cart
+$totals = Mage::getSingleton(‘checkout/session’)->getQuote()->getTotals(); //Total object
+$subtotal = round($totals["subtotal"]->getValue()); //Subtotal value
+$grandtotal = round($totals["grand_total"]->getValue()); //Grandtotal value
+>if(isset($totals['discount']) && $totals['discount']->getValue()) {
+$discount = round($totals['discount']->getValue()); //Discount value if applied
+} else {
+$discount = ”;
+}
+
+if(isset($totals['tax']) && $totals['tax']->getValue()) {
+$tax = round($totals['tax']->getValue()); //Tax value if present
+} else {
+$tax = ”;
+}
+
+===================================================
+// Clear Shopping Cart
+Mage::getSingleton('checkout/cart')->truncate();
+
+// Clear Checkout Session
+Mage::getSingleton('checkout/session')->clear();

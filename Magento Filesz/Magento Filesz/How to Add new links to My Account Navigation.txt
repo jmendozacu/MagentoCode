@@ -1,0 +1,57 @@
+
+1) Look for the xml file. (Extensions usually are placed on default/default folder)
+   app/design/frontend/default/default/layout/marketplacepartner.xml
+
+2) Edit the xml
+   look for:
+
+   <customer_account>
+    <reference name="customer_account_navigation">	
+	<action method="addLink" translate="label" module="marketplacepartner"><name>partnerproducts</name><path>marketplacepartner/partnerproducts/simpleproduct</path><label>New Products</label></action>
+	<action method="addLink" translate="label" module="marketplacepartner"><name>myproductslist</name><path>marketplacepartner/partnerproducts/myproductslist</path><label>My Products List</label></action>
+	<action method="addLink" translate="label" module="marketplacepartner"><name>mydashboard</name><path>marketplacepartner/partnerproducts/mydashboard</path><label>Store Sales</label></action>
+	
+    </reference>
+  </customer_account>   
+   
+  Add your own action method 
+  <action method="addLink" translate="label" module="marketplacepartner"><name>myref</name><path>marketplacepartner/partnerproducts/myref</path><label>Referral</label></action>
+
+
+3) Add your own block
+
+
+   <marketplace_account_myref>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="marketplacepartner/partnerproducts" name="marketplace_referral" template="customer/myref.phtml"/>
+        </reference>
+   </marketplace_account_myref>
+
+
+4) Go to folder app/design/frontend/default/default/template/customer
+   Create your own file 
+   myref.phtml - this is what your placed on the template on your block at the xml
+
+
+5) Look for the controller at the app/code/local folders
+   
+   hint: marketplacepartner/partnerproducts
+
+   app/code/local/Webkul/Marketplacepartner/controllers
+
+   this file -> PartnerproductsController.php
+
+   create public function
+
+   public function myrefAction(){
+	$this->loadLayout( array('default','marketplace_account_myref'));
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
+		$this->getLayout()->getBlock('head')->setTitle($this->__('My Referrals'));
+    	$this->renderLayout();
+	}
+
+   *use myref because of the <path>marketplacepartner/partnerproducts/myref</path> from the xml
+   *use marketplace_account_myref because of the <marketplace_account_myref> from the xml
+

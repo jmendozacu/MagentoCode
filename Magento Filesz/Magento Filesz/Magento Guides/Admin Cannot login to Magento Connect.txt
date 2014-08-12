@@ -1,0 +1,1 @@
+Change the permissions of downloader/index.php from 0666 to 0644

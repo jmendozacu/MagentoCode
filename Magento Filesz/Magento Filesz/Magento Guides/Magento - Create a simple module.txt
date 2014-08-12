@@ -1,0 +1,1 @@
+http://www.phparrow.com/magento/magento-create-a-simple-module/

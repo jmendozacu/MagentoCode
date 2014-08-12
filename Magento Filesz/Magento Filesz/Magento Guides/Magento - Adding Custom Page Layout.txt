@@ -1,0 +1,20 @@
+Select the area where you want to put your childhtml
+
+Page under page, catalog if catalog
+
+1. Copy /app/code/core/Mage/Page/etc/config.xml
+ to /app/code/local/Mage/Page/etc/config.xml
+
+2. At the       
+   <page>
+	<layouts>
+   Add your custom layout
+   <custom_page module="page" translate="label">
+         <label>Custom Page1</label>
+         <template>page/Custom1.phtml</template>
+         <layout_handle>page_one_column</layout_handle>
+   </custom_page>
+
+3. Create your blank template file specified in the XML
+
+app/design/frontend/[yourtheme]/default/template/page/Custom1.phtml

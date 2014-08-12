@@ -1,0 +1,36 @@
+Tested Magento 1.7
+
+1. Go to app/code/core/Mage/Rule/Model/Rule.php (for magento 1.4++)
+
+For magento 1.7 
+  go to /app/code/core/Mage/Rule/Model/Abstract.php 
+        and edit line No. 94 to 96....
+
+//check if discount amount > 0
+if ((int)$this->getDiscountAmount() < 0) {
+Mage::throwException(Mage::helper(‘rule’)->__(‘Invalid discount amount.’));
+}
+
+Comment out all
+
+2. app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Actions.php
+
+
+Look for:
+$fieldset->addField(‘discount_amount’, ‘text’, array(
+‘name’ => ‘discount_amount’,
+‘required’ => true,
+‘class’ => ‘validate-not-negative-number’,
+‘label’ => Mage::helper(’salesrule’)->__(‘Discount amount’),
+
+comment out -> // ‘class’ => ‘validate-not-negative-number’,
+
+
+3. Go to app/locale/es_ES (if using spanish)
+
+open Mage_Sales.csv
+change -> "Discount (%s)","Extra Fee (%s)"
+
+
+
+

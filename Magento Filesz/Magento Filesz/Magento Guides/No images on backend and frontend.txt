@@ -1,0 +1,2 @@
+Rename your .htaccess file inside the /media directory 
+to .htaccess-old. This will absolutely resolve your image issue.

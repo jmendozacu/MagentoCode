@@ -1,0 +1,32 @@
+1) Open 
+/app/design/adminhtml/default/default/template/sales/order/invoice/create/items/renderer/default.phtml
+
+look for
+
+<td class="a-center">
+    <?php /*if ($this->canEditQty()) : */?>
+        <input type="text" class="input-text qty-input" name="invoice[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>"/>
+    <?php /* else : ?>
+        <?php echo $_item->getQty()*1 ?>
+    <?php endif; */?>
+</td>
+// comment the php, leave only the input box
+
+2) Open
+
+/app/design/adminhtml/default/default/template/sales/order/invoice/create/items.phtml
+
+on the script at the bottom, comment out this function
+
+function checkButtonsRelation() {
+    var hasChanges = false;
+    fields.each(function (elem) {
+        if (elem.baseValue != elem.value) {
+            hasChanges = true;
+      ............
+    }
+}
+
+3) Check Sales->Order then create Invoice
+
+Tested on magento 1.7.0.2

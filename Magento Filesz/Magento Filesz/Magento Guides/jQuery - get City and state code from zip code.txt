@@ -1,0 +1,107 @@
+HTML-----------------------------------------------------
+
+<form action="#" method="post" class="fancy-form">
+
+  <fieldset>
+    <legend>Address</legend>
+
+    <div>
+      <div>
+        <input type="text" name="address-line-1" id="address-line-1">
+        <label for="address-line-1">Street #1</label>
+      </div>
+    </div>
+    <div>
+      <div>
+        <input type="text" name="address-line-2" id="address-line-2">
+        <label for="address-line-2">Street #2</label>
+      </div>
+    </div>
+    <div>
+      <div class="city-wrap">
+        <input type="text" name="city" id="city">
+        <label for="city">City</label>
+      </div>
+       <div class="state-wrap">
+        <input type="text" name="state" id="state">
+        <label for="state">State</label>
+      </div>
+       <div class="zip-wrap">
+        <input type="text" pattern="[0-9]*" name="zip" id="zip">
+        <label for="zip">Zip</label>
+        <p class="zip-error">Not a real zip code.</p>
+      </div>
+    </div>
+
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+
+  </fieldset>
+
+</form>
+
+
+CSS-------------------------------------------------
+
+form .zip-wrap {
+  display: block !important;
+}
+
+
+jQuery-----------------------------------------------
+
+function is_int(value){ 
+  if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
+      return true;
+  } else { 
+      return false;
+  } 
+}
+
+
+$(".fancy-form div > div").hide();
+
+$("#zip").keyup(function() {
+  var el = $(this);
+
+  if ((el.val().length == 5) && (is_int(el.val()))) {
+   
+    // Make Ajax call, etc
+ 
+  }
+
+}
+
+
+
+
+jQuery Ajax------------------------------------------
+
+$.ajax({
+  url: "http://zip.elevenbasetwo.com",
+  cache: false,
+  dataType: "json",
+  type: "GET",
+  data: "zip=" + el.val(),
+  success: function(result, success) {
+
+    $(".fancy-form div > div").slideDown(); /* Show the fields */
+
+    $("#city").val(result.city); /* Fill the data */
+    $("#state").val(result.state);
+
+    $(".zip-error").hide(); /* In case they failed once before */
+
+    $("#address-line-1").focus(); /* Put cursor where they need it */
+
+  },
+  error: function(result, success) {
+
+    $(".zip-error").show(); /* Ruh row */
+
+  }
+
+});
+
+ref: http://css-tricks.com/using-ziptastic/

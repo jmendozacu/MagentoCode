@@ -1,0 +1,9 @@
+Visa: 4111111111111111 
+MasterCard: 5555555555554444 
+American Express: 378282246310005
+
+Use any expiration date in the future and as the CVV/CVC/verification code use 123 or 000
+CID for American Express
+7373
+CVV2 / CVC3
+737

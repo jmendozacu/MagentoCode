@@ -1,0 +1,56 @@
+Ref
+http://inchoo.net/ecommerce/magento/magento-custom-emails/
+
+
+1. At any page
+
+//Get customer data
+$customer = Mage::getModel('customer/customer')->load($cn);
+$emailto = $customer->getEmail(); // get customer email
+$nameto = $customer->getName(); // get customer email
+$fname = $customer->getFirstname(); // get customer email
+$lname = $customer->getLastname(); // get customer email
+
+// load template
+$emailTemplate  = Mage::getModel('core/email_template');
+$emailTemplate->loadDefault('stylist_email_template');
+
+// Set variables on template
+$emailTemplateVariables = array();
+$emailTemplateVariables['name1'] = $nameto;
+$emailTemplateVariables['fname'] = $fname;
+$emailTemplateVariables['lname'] = $lname;
+
+// Email of sender & name
+$salesData['email'] = Mage::getStoreConfig('trans_email/ident_general/email');
+$salesData['name'] = Mage::getStoreConfig('trans_email/ident_general/name');
+$emailTemplate->setSenderName($salesData['name']); // sender name (from store)
+$emailTemplate->setSenderEmail($salesData['email']); // sender email (from store)
+$emailTemplate->setTemplateSubject('Stylist Status APPROVED!'); // email subject
+$processedTemplate = $emailTemplate->getProcessedTemplate($emailTemplateVariables);
+
+// send action
+$emailTemplate->send($emailto,$nameto, $emailTemplateVariables);
+
+2. Edit your config.xml file of module
+<global>
+    <template>
+        <email>
+            <stylist_email_template module="ModuleName">
+                <label>ActiveCodeline custom email module</label>
+                <file>activecodeline_custom_email1.html</file>
+                <type>html</type>
+            </stylist_email_template>
+        </email>
+    </template>
+</global>
+
+3. Create file at (email html)
+
+app/locale/en_US/template/email/activecodeline_custom_email1.html
+
+<div>
+<h1>ActiveCodeline custom email example</h1>
+<p>Hi there {{var name1}} {{var fname}} from {{var lname}}. This is just some example template to test custom email module.</p>
+</div>
+

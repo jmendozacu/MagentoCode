@@ -1,0 +1,37 @@
+Ref:
+https://support.sweettoothrewards.com/entries/21121982-Resolving-Extension-Conflicts
+
+Conflicting Extensions:
+TBT_Rewards
+Amasty_Wildcard
+KlarnaPaymentModule
+
+Make Loading Order -> TBT_Rewards, Amasty_Wildcard, KlarnaPaymentModule
+
+1. Open /app/etc/modules/TBT_Rewards.xml
+   - added
+     <depends>
+      	<Amasty_Wildcard/>
+     </depends>
+
+2. Open /app/etc/modules/Amasty_Wildcard.xml
+   - added 
+   <depends>
+     <Klarna_KlarnaPaymentModule/>
+   </depends>
+
+3. No need to edit Klarna_KlarnaPaymentModule 
+
+4. Open /app/code/community/TBT/Rewards/etc/config.xml
+   <sales>
+   <rewrite>
+   !commented out
+   <quote>TBT_Rewards_Model_Sales_Quote</quote>
+
+5. Open /app/code/local/Amasty/Wildcard/etc/config.xml
+   <models>
+   <sales>
+   <rewrite>
+   !commented out
+   <quote>Amasty_Wildcard_Model_Sales_Quote</quote>
+

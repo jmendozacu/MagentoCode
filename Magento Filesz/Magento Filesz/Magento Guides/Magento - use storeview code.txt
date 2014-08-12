@@ -1,0 +1,16 @@
+	<?php $buy="Buy";$more="More Info";
+		$country_code = Mage::getStoreConfig('general/country/default'); 
+		if($country_code=="DK"){
+		    $buy="K&oslash;b";
+		    $more="Mere Info";
+		}
+		if($country_code=="SE"){
+		    $buy="K&ouml;p";
+		    $more="Mer Info";
+		}
+		if($country_code=="DE"){
+		    $buy="Kaufen";
+		    $more="Mehr Infos";
+		    if($_category->getId()==68)$_productCollection=array(197);
+		}
+		?>	

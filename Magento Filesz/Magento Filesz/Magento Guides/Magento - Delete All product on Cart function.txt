@@ -1,0 +1,11 @@
+public function deleteallAction()
+    {
+        $cartHelper = Mage::helper('checkout/cart');
+        $items = $cartHelper->getCart()->getItems();       
+        foreach ($items as $item)
+        {
+                $itemId = $item->getItemId();
+                $cartHelper->getCart()->removeItem($itemId)->save();
+        }
+        $this->_redirectReferer(Mage::getUrl('*/*'));
+    }

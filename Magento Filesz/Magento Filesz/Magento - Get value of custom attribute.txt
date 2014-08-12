@@ -1,0 +1,8 @@
+
+
+$storeid = store id
+$attribcode = attribute code //hint goto admin attributes, mouse over and you will see the attribute code
+$prod_id = product id
+
+
+$getname = Mage::getResourceModel('catalog/product')->getAttributeRawValue($prod_id, $attribcode, $storeid);

@@ -1,0 +1,41 @@
+1. Create a file (ie. grab.php)
+
+
+<?php
+require_once('app/Mage.php'); //Path to Magento
+umask(0);
+Mage::app();
+
+// declare arrays
+$posts = array();
+$rest = array();
+
+//get magento products colletion
+$collection = Mage::getModel('catalog/product')
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+
+foreach ($collection as $product) {
+    $name = $product->getName();
+	$sku = $product->getSku();
+	$pric = $product->getPrice();
+	$des = $product->getDescription();
+	
+	echo "Name:".$name."<br />";
+	echo "SKU:".$sku."<br />";
+	echo "Price:".$pric."<br />";
+	echo "Description:".$des."<br />";
+	
+	//save items to array
+	$posts[] = array('name'=> $name, 'sku'=> $sku, 'price'=> $pric, 'description'=> $des);
+}
+
+
+$response['posts'] = $posts;
+
+//write to file output (products.json file format)
+$fp = fopen('products.json', 'w');
+fwrite($fp, json_encode($response));
+fclose($fp);
+
+?>

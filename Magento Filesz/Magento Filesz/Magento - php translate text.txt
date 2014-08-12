@@ -1,0 +1,18 @@
+If used outside magento
+
+<?php echo Mage::helper('core')->__('No books found in this category!');?>
+
+If inside phtml
+
+<?php echo $this->__('Need more information?')?>
+
+Get Block 
+
+From CMS Block
+
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homevideo')->toHtml();?>
+
+From another phtml file
+
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('cms/formvideo.phtml')->toHtml(); ?>
+

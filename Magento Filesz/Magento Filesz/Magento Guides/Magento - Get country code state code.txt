@@ -1,0 +1,21 @@
+<?php 
+  // Also use others countries i.e FR,DE
+  $countryName = Mage::getModel('directory/country')->load('US')->getName(); //get country name
+  echo 'Country Name ->'.$countryName.'<br/>';
+  
+  $states = Mage::getModel('directory/country')->load('US')->getRegions(); //state names
+									
+  foreach ($states as $state)
+    {       
+	$sid = $state->getId(); // state id
+	$sname = $state->getName(); // state name
+	$scode = $state->getCode(); // state code
+	echo 'ID->'.$sid.'<br/>';
+	echo 'Name->'.$sname.'<br/>';
+	echo 'Code->'.$scode.'<br/>';
+	//echo '<option value="'.$sid.'" class="'.$scode.'">'.$sname.'</option>';
+    }
+?>
+
+
+ref: http://blog.decryptweb.com/country-and-states-magento/

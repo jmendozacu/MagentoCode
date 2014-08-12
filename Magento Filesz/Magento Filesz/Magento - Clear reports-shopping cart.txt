@@ -1,0 +1,19 @@
+Use phpMyAdmin
+
+TRUNCATE `sales_flat_quote` ; // clears Report->Shopping Cart->Products in Cart and Abandoned Cart
+
+TRUNCATE `sales_flat_quote_address` ;
+
+TRUNCATE `sales_flat_quote_address_item` ;
+
+TRUNCATE `sales_flat_quote_item` ;
+
+TRUNCATE `sales_flat_quote_item_option` ;
+
+TRUNCATE `sales_flat_quote_payment` ;
+
+TRUNCATE `sales_flat_quote_shipping_rate` ;
+
+
+
+ref:http://www.magentocommerce.com/boards/viewthread/19754/

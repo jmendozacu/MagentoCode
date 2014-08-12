@@ -1,0 +1,7 @@
+To fresh install
+
+It will delete the access to the old database
+
+Delete the following file: 
+
+magento/app/etc/local.xml

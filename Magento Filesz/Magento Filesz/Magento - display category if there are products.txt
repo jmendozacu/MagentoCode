@@ -1,0 +1,15 @@
+<?php
+    $sale_count = Mage::getModel('catalog/category')->load(198)->getProductCount();
+    if ($sale_count > 0) : ?>
+        <li class="sale"><a href="/sale/">Sale Items</a></li>
+<?php
+    endif;
+    $internet_count = Mage::getModel('catalog/category')->load(200)->getProductCount();
+    if ($internet_count > 0) : ?>
+        <li class="internet"><a href="/internet-only/">Internet Only</a></li>
+<?php
+    endif;
+?>
+
+
+Ref: http://prattski.com/2008/12/17/magento-display-only-if-there-are-products-in-the-category/

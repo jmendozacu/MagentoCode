@@ -1,0 +1,19 @@
+
+
+// $pid = id of product	
+
+	$product1 = Mage::getModel('catalog/product')->load($pid);
+	    foreach ($product1->getOptions() as $_option) {
+            $values = $_option->getValues();
+			$opt = $_option->getTitle(); //get main custom name
+            foreach ($values as $v) {
+				$optitle = $v->getTitle();
+				$optord = $v->getSortOrder(); 
+				
+                echo $optitle; // Displaying Dropdown values
+                echo $optord;  
+				
+				
+						
+            }
+        }

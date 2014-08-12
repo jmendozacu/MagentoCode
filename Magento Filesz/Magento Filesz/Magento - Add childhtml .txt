@@ -1,0 +1,21 @@
+Select the area where you want to put your childhtml
+
+Page under page, catalog if catalog
+
+To add childhtml to page only
+
+1) open page.xml
+
+2) Add block
+
+<block type="page/html" name="dashmenu" as="dashmenu" template="page/html/dashmenu.phtml" />
+
+*type - can be any name, but must be standard
+*name - this will the name used to call the childhtml
+*template - the path where your template is found
+
+3) For use example ie. 1column.phtml
+
+<?php echo $this->getChildHtml('dashmenu') ?>
+
+*This is true for pages only page/html

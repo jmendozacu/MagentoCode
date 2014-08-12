@@ -1,0 +1,8 @@
+
+
+System -> 
+Configuration -> 
+Advanced and change the “Mage_AdminNotification” drop down to disabled.
+
+
+http://www.nyssasutherland.com/how-to-disable-annoying-magento-admin-popup-messages/

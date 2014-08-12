@@ -1,0 +1,49 @@
+------------------------create image link on title------------
+<div class="blueleft">
+					
+<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+<img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo.png" /></a>
+				
+</div>
+
+
+-----------------------display specific post------------------
+
+<?php
+ $post_id = 403;
+						
+$queried_post = get_post($post_id);	?>
+
+<h2><?php echo $queried_post->post_title; ?></h2>
+					
+<?php echo $queried_post->post_content; ?>
+
+----------------------display thumbnail image to post---------
+<?php
+$post_id = 28;
+$queried_post = get_post($post_id);
+ if ( has_post_thumbnail($post_id)) {
+ $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post_id), 'large');
+ echo '<a href="' . $large_image_url[0] . '" title="' . the_title_attribute('echo=0') . '" >';
+ echo get_the_post_thumbnail($post_id, 'thumbnail'); 
+ echo '</a>';
+ }
+?>
+<h2><?php echo $queried_post->post_title; ?></h2>
+<?php echo $queried_post->post_content; ?>
+
+-----------------------permalink to post----------------------
+echo '<a href="'.get_permalink($post_id).'">';
+
+-----------------------image link to current directory--------
+<img src="<?php bloginfo('stylesheet_directory'); ?>/img/deck1.png" width="174" height="337"/>
+
+----------------------remove post limit-----------------------
+http://code.mincus.com/38/how-to-remove-the-posts-per-page-limit-in-wordpress/
+
+---------------------tranparent background----------------------
+{background:none;background-color:rgba(255,255,255,0.5); }
+
+
+
+

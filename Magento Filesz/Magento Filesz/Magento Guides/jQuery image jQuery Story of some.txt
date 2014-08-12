@@ -1,0 +1,41 @@
+-----------------replace + loop <li>---------------------------
+<script type="text/javascript">// 
+
+<![CDATA[
+
+
+var jrp = jQuery.noConflict();
+
+
+jrp(document).ready(function(){
+
+
+
+if ( jrp('.catalog-product-view').length ){
+
+jrp(".more-views ul li").each(function(){
+popimage = jrp(this).find("img").attr("src").replace("thumbnail/48x", "image"); 
+urlpic = jrp(this).find("img").attr("src");
+rep1 = urlpic.replace("s4fbe789df3869.img","storyofsomething");
+rep2 = rep1.replace("802754/cdn","");
+rep3 = rep2.replace("cache/1/thumbnail/48x/9df78eab33525d08d6e5fb8d27136e95","");
+jrp(this).find("a").attr("href",rep3);
+jrp(this).find("a").attr("onclick","#");
+jrp(this).find("a").addClass("fancybox");
+jrp(".fancybox").colorbox();
+});
+}
+});
+// ]]></script>
+
+//close pop-ups on colorbox @ IE9
+<script>
+$(function() {
+ var xxx = jQuery.noConflict();
+  function closebox()
+  {
+   xxx.colorbox.close();
+   parent.jQuery.colorbox.close();
+  }
+});
+</script>

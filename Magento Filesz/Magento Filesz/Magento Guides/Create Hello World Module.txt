@@ -1,0 +1,3 @@
+http://www.magentocommerce.com/knowledge-base/entry/magento-for-dev-part-3-magento-controller-dispatch
+
+http://codemagento.blogspot.com/2012/05/create-magento-hello-world-module.html

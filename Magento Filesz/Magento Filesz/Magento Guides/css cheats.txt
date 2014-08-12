@@ -1,0 +1,29 @@
+-Using nth child----------------------------
+
+Using language
+
+:lang(pt) dt:nth-child(2) {display:none;}
+:lang(pt) dt:nth-child(3) {display:none;}
+
+#selector_example li:first-child // will not work
+#selector_example li:last-child // will not work
+#selector_example li:nth-last-child(2) // second to the last
+
+---Handling a colon in an element ID in a CSS selector
+
+i.e.
+
+<input type="text" id="billing:city" class="input-text required-entry" value="" >
+
+css
+
+input#billing\:city {  ///...}
+
+----CSS Selector for label bound to input--------------
+
+<label required="required" for="one">Label:</label><input name="one" id="one" />
+
+label[required=required]
+{
+color: blue;
+}

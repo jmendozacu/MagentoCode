@@ -1,0 +1,78 @@
+USPS Setup on Magento
+
+1. Follow Setup here : http://www.magentocommerce.com/knowledge-base/entry/shipping-carriers-usps
+
+2. Create a USPS account : https://secure.shippingapis.com/registration/
+
+3. Email Internet Customer Care Center to request transfer of account to production (test account is not useful/helpful)
+
+4.Read the recent changes: http://www.magentocommerce.com/knowledge-base/entry/usps-changes/
+
+5. Apply USPS API patch : http://www.magentocommerce.com/blog/magento-community-edition-alert-important-patch-for-usps-api/
+
+This will require SSH access
+
+6. Setting up configuration: working and live
+
+(Example method : Priority Mail Medium Flat Rate Box - tried working on precision.com/magento 
+other Allowed methods may require different adjustments, height, weight, etc...)
+
+A. Configuation->Shipping Methods->USPS
+
+Gateway URL : http://production.shippingapis.com/ShippingAPI.dll
+Secure Gateway URL: https://secure.shippingapis.com/ShippingAPI.dll
+
+User ID: (enter user ID from email)
+Password: (*****)
+Mode: Development
+Packages Request Type: divide to equal weight
+Container : variable
+Size : Regular
+
+-if Large enter the ff (applicable to Priority Mail Medium Flat Rate Box only)
+
+Length : 13 (max)
+Width: 3 (max)
+Height: 11 (max)
+Girth: 95 (max)
+Maximum Package Weight : 500 (does not have a limit up to 500, but more, im not sure)
+
+Machinable: Yes
+
+Maximum Package weight : 500 (no sure, does not have any effect so far)
+
+Calculate Handling fee: Fixed
+
+Handling Applied: Per Order
+
+Handling Fee: (blank)
+
+Allowed Methods: Priority Mail Medium Flat Rate Box (You can select all or any)
+
+Free Method: Priority Mail Medium Flat Rate Box (clients choice)
+
+Minimum Order Amount for Free Shipping: (blank)
+......
+Debug: Yes (to view logs, goto main folder var/logs/shipping_usps.log)
+
+B. Catalog -> Manage Product (look for the product)
+
+
+Weight: 5 (not max) (this is in pounds - lbs)
+
+
+Some help links:
+http://www.theedesign.com/blog/2009/setting-up-magento-with-usps
+
+For Shipping label
+
+Use real address example
+
+Street: 6406 VYI LN
+City: GREENBELT
+Country : US
+State: Maryland
+Zip: 20770
+
+
+

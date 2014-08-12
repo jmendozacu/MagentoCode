@@ -1,0 +1,9 @@
+path-to-your-root-folder/app/design/adminhtml/default/default/template/
+
+1. forgotpassword.phtml 
+2. login.phtml 
+3. access_denied.phtml 
+4. overlay_popup.phtml 
+
+
+http://www.magentocommerce.com/boards/viewthread/18258/

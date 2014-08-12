@@ -1,0 +1,194 @@
+Ref: http://www.greenacorn-webdesign.co.uk/magento/building-a-magento-admin-module.php
+
+
+0.  /app/etc/modules
+Create a module Modulename.xml *Use the Namespace and module name to be easily identified
+
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Greenacorn_Greenmodule>
+            <active>true</active>
+            <codePool>local</codePool> *the location of the module is at /app/code/local/, use community if its at the community folder
+        </Greenacorn_Greenmodule>
+    </modules>
+</config>
+
+
+
+1. Creating the Module Folder Structure
+Lets start by creating the following folders:
+
+/app/code/local/Greenacorn/Greenmodule/etc
+/app/code/local/Greenacorn/Greenmodule/controllers
+/app/code/local/Greenacorn/Greenmodule/Helper
+
+2 create config.xml at the /etc folder
+
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <greenacorn_greenmodule>
+            <version>1.0.0</version>
+            <depends>
+                <!-- no dependencies -->
+            </depends>
+        </greenacorn_greenmodule>
+    </modules>
+    <global>
+        <models />
+        <blocks />
+        <resources />
+        <extraconfig />
+        <helpers>
+            <greenmodule>
+                <class>Greenacorn_Greenmodule_Helper</class>
+            </greenmodule>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <greenacorn_greenmodule>
+                <use>admin</use>
+                <args>
+                    <module>Greenacorn_Greenmodule</module>
+                    <frontName>greenmodule</frontName> // this will be used for <action>greenmodule/june</action> on adminhtml.xml
+                </args>
+            </greenacorn_greenmodule>
+        </routers>
+    </admin>
+</config>
+
+3 Create adminhtml.xml at the /etc folder
+
+-Without sub menu
+
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <green_menu translate="title" module="greenmodule">
+            <title>Green Acorn</title>
+            <sort_order>9999</sort_order>
+            <action>greenmodule/index/index</action>
+        </green_menu>
+    </menu>
+</config>
+
+-With Sub menus
+
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <green_menu translate="title" module="greenmodule"> *Use the module name in this case, its 'greenmodule'
+            <title>custom Menu</title>
+            <sort_order>2</sort_order>
+           
+	    <children>                                          
+                <index module="greenmodule" translate="title">
+                    <title>Sub menu 1</title>
+                    <sort_order>1</sort_order>
+                     <action>greenmodule/june</action>
+                </index>
+                <list module="greenmodule" translate="title">
+                    <title>Sub menu 2</title>
+                    <sort_order>2</sort_order>
+                     <action>greenmodule/index/index</action>
+                </list>
+            </children>
+        </green_menu>
+    </menu>
+</config>
+
+--------------- To Add ACL - access control list ---------------------
+
+<config>
+    <menu>
+        <!-- ... -->
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>                
+                    <pulsestorm translate="title" module="pulsestorm_adminhello">
+                        <title>Top Level Pulse Storm Menu Item</title>
+                        <sort_order>1</sort_order>
+                    </pulsestorm>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+
+
+
+4. Create helper file at /app/code/local/Greenacorn/Greenmodule/Helper/ Data.php
+
+<?php
+class Greenacorn_Greenmodule_Helper_Data extends Mage_Core_Helper_Abstract
+{}
+
+5. Add the controller file
+   /app/code/local/Greenacorn/Greenmodule/controllers/IndexController.php *This is for the <action>greenmodule/index/index</action>
+
+<?php
+class Greenacorn_Greenmodule_IndexController extends Mage_Adminhtml_Controller_Action
+{  
+    public function indexAction()
+    {
+        $this->loadLayout();
+         
+        $block = $this->getLayout()->createBlock('core/text', 'green-block')->setText('<h1>Green Acorn Web Design</h1>');
+        $this->_addContent($block);
+         
+        $this->_setActiveMenu('green_menu')->renderLayout();      
+    }   
+}
+
+- For the other controller
+  /app/code/local/Greenacorn/Greenmodule/controllers/JuneController.php
+
+<?php
+class Greenacorn_Greenmodule_JuneController extends Mage_Adminhtml_Controller_Action
+{  
+    public function indexAction()
+    {
+        $this->loadLayout();
+         
+        $block = $this->getLayout()->createBlock('cms/block')->setBlockId('newblock');
+        
+	$this->_addContent($block);
+         
+        $this->_setActiveMenu('green_menu')->renderLayout();      
+    }   
+}
+
+6. Controller that uses a phtml file
+<?php
+
+class Greenacorn_Greenmodule_IndexController extends Mage_Adminhtml_Controller_Action
+{
+	public function indexAction()
+	{
+		$this->loadLayout();
+		
+		$block = $this->getLayout()->createBlock(
+			'Mage_Core_Block_Template', // Must be same
+			'my_block_name_here', // Can change to any block name
+			array('template' => 'inchoo/example_core_block.phtml')
+		);
+		// app/design/adminhtml/default/default/template/inchoo/example_core_block.phtml
+		
+		//$this->_addContent($block);
+		
+		$this->getLayout()->getBlock('content')->append($block);
+		
+		$this->renderLayout();
+	}
+}
+
+
+*NOTE: Controller files dont have php closing...
+
+
+
+

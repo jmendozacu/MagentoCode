@@ -1,0 +1,9 @@
+Step 1 : create one checkversion.php file in root directory of your magento project.
+
+Step 2 : Now copy and paste the below code.
+
+<?php
+include_once('app/Mage.php');
+Mage::app();
+echo Mage::getVersion();
+?>

@@ -1,0 +1,12 @@
+Clear shopping cart
+
+foreach( Mage::getSingleton('checkout/session')->getQuote()->getItemsCollection() as $item ){
+    Mage::getSingleton('checkout/cart')->removeItem( $item->getId() )->save();
+}
+
+
+Clear entire session
+
+Mage::getSingleton(‘checkout/session’)->clear();
+
+ref:http://www.nvncbl.com/2009/09/magento-clear-shopping-cart-and-session/

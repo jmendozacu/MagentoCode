@@ -1,0 +1,17 @@
+
+1. go to Mage_Checkout_OnepageController::successAction()
+
+2. Comment the line $session->clear();. Now you can make one order and refresh the page as often as you like.
+
+3. If you do not even want to make an order on each browser, for example when doing cross-browser testing, you also can just initialize the session every time.
+
+Pick an order id and a quote id from the table sales_flat_order (fields: ?entity_id and quote_id) and change the beginning of the function as follows:
+
+$session = $this->getOnepage()->getCheckout();
+
+$session->setLastSuccessQuoteId(INSERT_QUOTE_ID);
+$session->setLastQuoteId(INSERT_QUOTE_ID);
+$session->setLastOrderId(INSERT_ORDER_ID);
+and replaceINSERT_.... with the IDs.
+
+Now you can always call checkout/onepage/success

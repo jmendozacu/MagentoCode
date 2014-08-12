@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <bmenu_menu translate="title" module="bmodule"> *Use the module name in this case, its 'bmodule'
+            <title>Book Publication</title>
+            <sort_order>2</sort_order>
+           
+	    <children>                                          
+                <index module="bmodule" translate="title">
+                    <title>Edit Publication</title>
+                    <sort_order>1</sort_order>
+                    <action>bmodule/bmenus</action> 
+                </index>
+				
+<!--                 <list module="bmodule" translate="title">
+                    <title>Sub menu 2</title>
+                    <sort_order>2</sort_order>
+                     <action>bmodule/bmenus</action> 
+					 
+                </list> -->
+        </children>
+        </bmenu_menu>
+    </menu>
+	<acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <bmenu_menu translate="title" module="bmodule">
+                                        <title>Book Publication</title>
+                                    </bmenu_menu>
+                                </children>
+                            </config>
+                        </children>
+                    </system>                
+					<bmenu_menu translate="title" module="bmodule">
+								<title>Book Publication</title>
+								<children>
+									<index translate="title" module="bmodule">
+										<title>Edit Publication</title>
+										<action>bmodule/bmenus</action> 
+									</index>
+								</children>
+								
+								<!--<children>
+									<marketplacepartner_commision translate="title" module="marketplacepartner">
+										<title>Manage Commision</title>
+										<action>marketplacepartner/commisions</action>
+									</marketplacepartner_commision>
+								</children>-->
+					</bmenu_menu>	
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

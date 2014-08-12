@@ -1,0 +1,3 @@
+Catalog -> Attributes -> manage Attributes, 
+find attribute “image” and apply this attribute to “all product types”. 
+Then the base image will appear again for all of your products and product types.

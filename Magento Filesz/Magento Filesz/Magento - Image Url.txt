@@ -1,0 +1,25 @@
+
+
+Thumbnail
+
+echo  Mage::helper('catalog/image')->init($product, 'thumbnail');
+
+Image resize
+
+echo  Mage::helper('catalog/image')->init($product, 'image')->resize(135,135);
+
+
+Small image resize
+
+echo $this->helper('catalog/image')->init($product, 'small_image')->resize(38, 38);
+
+If image does not appearon script, add this
+
+
+addAttributeToSelect('image')
+
+ex.
+$collection = Mage::getModel('catalog/product')
+			->getCollection()
+			->addAttributeToSort('created_at', 'DESC')
+			->addAttributeToSelect('image');

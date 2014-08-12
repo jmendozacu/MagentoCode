@@ -1,0 +1,321 @@
+---------------------------------css center menu------------------------------------
+http://csswizardry.com/demos/centred-nav/
+------------------------------------------------------------------------------------
+Files locations:
+/app/design/frontend/default/modern/template/catalogsearch/form.mini.phtml -> search form
+/app/design/frontend/default/modern/template/page/html/header.phtml        -> header 
+/app/design/frontend/default/modern/template/page/html/footer.phtml        -> footer
+/app/design/frontend/base/default/template/checkout/onepage/billing.phtml  -> billing html
+/app/design/frontend/base/default/template/page/template/links.phtml       ->links.phtml
+/app/design/frontend/base/default/template/customer/form/register.phtml   -> edit create new account form
+/app/design/frontend/base/default/template/customer/widget/name.phtml      -> edit first/last name form
+/app/design/frontend/base/default/template/customer/form/login.phtml       -> edit login page
+/app/design/frontend/base/default/template/checkout/onepage.phtml          -> edit checkout page
+app/design/frontend/base/default/template/customer/account/dashboard.phtml -> my account page
+app/design/frontend/base/default/template/customer/account/dashboard/info.phtml -> info on my account
+app/design/frontend/base/default/template/customer/address/edit.phtml           -> edit address page on my account
+Admin -> System Configuration -> General -> Countries options -> Default country  -> change default country
+-----------------------Edit contact us----------------------------
+/app/design/frontend/default/drgruwell/template/contacts/form.phtml
+/app/design/frontend/default/drgruwell/layout/contacts.xml
+
+--------------------------Edit search layout----------------------
+/app/design/your_interface/your_theme/layout/catalogsearch.xml
+
+---------------------------THEME-------------------------------
+
+FTP FOLDERS
+
+/app/design/frontend/default/[theme name]/layout
+					  local.xml 	
+/app/design/frontend/default/[theme name]/template
+
+/skin/frontend/default/[theme name]/css
+				    local.css
+/skin/frontend/default/[theme name]/images
+				    logo.gif
+------------------------------------css----------------------
+background: url("../images/green-but.jpg") repeat-x scroll 0 0 transparent !important;
+
+-------------------customize new nav----------------------------
+/template/catalog/navigation/top.phtml
+
+<div class="nav-container">
+<ul id="nav">
+<!-- NEW HOME LINK -->
+<li class="home"><a href="<?php echo $this->getUrl('')?>"><?php echo $this->__('Home') ?></a></li>
+<!-- NEW HOME LINK -->
+<?php echo $_menu ?>
+</ul>
+</div>
+
+-------------------------------------------------------------
+sample left vertical nav:
+
+<div class="block block-categories">
+ <div class="block-title">
+ <strong><span>Products</span></strong>
+ </div>
+ <div class="block-content">
+ <?php
+$cats = Mage::getModel('catalog/category')->load(3)->getChildren();
+$catIds = explode(',',$cats);
+?>
+<ul class="nav_category">
+     
+      <?php foreach ($this->getStoreCategories() as $category): ?>
+      <?php if ($category->getUrlKey() != 'our-collections'): ?>
+      <?php echo $this->drawItem($category) ?>
+      <?php endif; ?>
+      <?php endforeach ?>
+          
+     </ul>
+<!--<ul class="nav_category">
+<?php foreach($catIds as $catId): ?>
+    <li>
+        <?php
+            $category = Mage::getModel('catalog/category')->load($catId);
+            echo '<a href="' . $category->getUrl() . '">';
+            echo $category->getName() . '</a>';
+        ?>
+    </li>
+<?php endforeach; ?>
+</ul>-->
+
+ </div>
+</div>
+----------------------------------------------------------------
+MAGENTO CODEX
+
+ADMIN
+
+{{skin url=""}}  - used for CMS pages and Static Blocks
+{{block type="cms/block" block_id="feature-block"}} -> insert a cms/block
+<img src="{{skin url='images/facebook.png'}}" alt="" />
+<a href="{{store url="my_page_sef_url"}}">
+
+PHP
+
+<?php echo$this->getSkinUrl(''); ?>
+<?php echo$this->getSkinUrl('images/newsletter_text.gif'); ?>
+
+----------------------------log-in / log-out php---------------------
+<?php if (Mage::getSingleton('customer/session')->isLoggedIn()==0): ?>
+<a href="<?php echo $this->getUrl('customer/account/login') ?>"><?php echo $this->__('Log In') ?></a>
+<?php else: ?>
+<a href="<?php echo $this->getUrl('customer/account/logout') ?>"><?php echo $this->__('Log Out') ?></a>
+<?php endif ?>
+---------------------------display firstname of customer--------------
+<?php echo $this->__('Hi %s', Mage::getSingleton('customer/session')->getCustomer()->getFirstname()); ?>
+---------------------------------DEBUG MODE---------------------------
+1. system -> configuration -> Current Configuration Scope: -> Main Website
+2. Advance -> Developer -> Template Path Hints ->Yes
+
+----------------remove top links---------------------------------
+http://classyllama.com/development/magento-development/editing-magentos-top-links-the-better-way
+
+----------------remove MyAccount-----------------------------------
+layout/customer.xml
+- comment out my account
+----------------remove Wishlist-----------------------------------
+layout/wishlist.xml
+- comment out wishlist_link
+
+------------------Images does not appear---------------------------
+src="http://life-elements.co/media/wysiwyg/image014.png"
+---------------------------------------------------------------
+
+main page location:
+/public_html/app/design/frontend/default/archmage/template/cms/home.phtml
+---------------------------------------------------------------
+
+link to a cms page
+<a href="<?php echo $this->getUrl('inflammation.html') ?>">INFLAMMATION</a>
+
+----------------title-------------------------------------------
+<?php echo $this->getTitle() ?>
+
+---------------url of page--------------------------------------
+<?php echo $this->getUrl('') ?>
+
+-------------------php code to cms/block------------------------
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('right-links')->toHtml() ?> 
+
+-------------------codex for link image-------------------------
+<a href="{{store url='wordpress/dr-amir-farid-isahak'}}"> <img src="{{media url='wysiwyg/feat-DR-AMIR-FARID-ISAHAK.jpg'}}" alt="featured-experts" /> </a>
+
+----------------------Load block in template file------------------
+ 
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top_left_links')->toHtml() ?>
+
+----------------------Get page title and contents from backend--------
+
+$terms_condtn_title = Mage::getModel('cms/page')->load('terms-and-conditions', 'identifier')->getTitle();
+$terms_condtn_content = Mage::getModel('cms/page')->load('terms-and-conditions', 'identifier')->getContent();	
+echo $terms_condtn_content;
+
+----------------------call phtml on xml-------------------------------
+<reference name="left">
+	<block type="catalog/navigation" name="news.top" template="catalog/navigation/news.phtml"/>
+</reference>
+
+----------------------call phtml on phtml-----------------------------
+<?php echo $this->getLayout()->createBlock('catalog/navigation')->setTemplate('catalog/navigation/news.phtml')->toHtml() ;?>
+
+----------------------call cart---------------------------------------
+<?php echo $this->getUrl('checkout/cart/'); ?>
+
+
+-----------------------references-------------------------------------
+https://gist.github.com/1086455
+
+--------------------------get database info---------------------------
+/web/app/etc/local.xml
+
+----------------------manual install extensions-----------------------
+http://www.tangkoko.com/direct-download-magento-extension/
+
+---------------------------magento go - add cms/block-----------------
+<reference name="header.panel">
+<block type="cms/block" name="login-reg">
+    <action method="setBlockId"><block_id>login-reg</block_id></action>
+</block>
+</reference>
+----------------------------------------------------------------------
+
+----------------display 400 new products in 6 columns--------------------
+{{block type="catalog/product_new" column_count="6" products_count="400" 
+name="home.catalog.product.new" alias="product_homepage" template="catalog/product/new.phtml"}}
+---------------add contact us------------------------------------------
+<!– CONTACT FORM CODE BEGIN–>
+{{block type='core/template' name='contactForm' template='contacts/form.phtml'}}
+<!– CONTACT FORM CODE END–>
+
+-------------------------------add mini-search---------------------------
+
+<form id="search_mini_form" action="http://storyofsomething.gostorego.com/catalogsearch/result/" method="get">
+<div class="form-search"><label for="search">Buscar:</label> <input id="search" class="input-text" type="text" name="q" value="" /> <button class="button" title="Buscar" type="submit"><span><span>Buscar</span></span></button>
+<div id="search_autocomplete" class="search-autocomplete" style="display: none;">&nbsp;</div>
+<script type="text/javascript">// <![CDATA[
+        var searchForm = new Varien.searchForm('search_mini_form', 'search', 'Buscar en el catálogo...');
+        searchForm.initAutocomplete('http://storyofsomething.gostorego.com/catalogsearch/ajax/suggest/', 'search_autocomplete');
+// ]]></script>
+</div>
+</form>
+
+---------------------------------change layout of page in magento go-----------------
+insert inside top callout or <head>...</head>
+<script type="text/javascript">
+Event.observe(window, 'load', function() {
+$$('.catalogsearch-result-index .col3-layout').invoke('removeClassName','col3-layout');
+$$('.catalogsearch-result-index .main').invoke('addClassName','col2-right-layout');
+});
+</script>
+--------------------------sort by newest at xml layout-------------------------------------
+<block type="catalog/product_list_toolbar"  name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+        <action method="setDefaultDirection"><dir>desc</dir></action>
+</block>
+-------------------------
+{{block type="catalog/product_list" column_count="3" products_count="3" category_id="23" template="catalog/product/list.phtml"}}
+
+----------------------------------javascript clear textbox on click-------------------------
+<input type="text" value="Search..." onclick="if(this.value=='Search...'){this.value=''}" onblur="if(this.value==''){this.value='Search...'}">
+
+<?php echo Mage::getDesign()->getSkinUrl('images/arrow2.gif')?> --- display image on images dir
+
+-Get info on shopping cart-
+http://blog.chapagain.com.np/magento-get-all-shopping-cart-items-and-totals/
+
+--------------------------------Remove wishlist on shopping cart----------------------------------
+-Comment out the following in app/design/frontend/<package>/<theme>/checkout/cart/item/default.phml 
+<?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+    <td class="a-center">
+        <input type="checkbox" value="1" name="cart[<?php echo $_item->getId() ?>][wishlist]" />
+    </td>
+    <?php endif ?>
+-Comment out the following line in app/desgin/frontend/<package>/<theme>/checkout/cart.phtml 
+<th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Move to Wishlist') ?></th>
+
+--------------Get the 2 letter code for state at account creation - login.phtml --------------------
+Look for -->
+foreach($regions as $region)
+                        {
+                           echo "<option value=$region[region_id]>".$region['name'] . "</option>";
+                        }
+-->change 'name' to 'code'
+----------------------------------------------------------------------------------------------------
+http://dx3webs.com/front/2011/04/magento-how-to-prompt-visitors-to-create-an-account-or-log-in/
+http://stackoverflow.com/questions/9309767/how-to-add-images-of-products-being-purchased-to-order-review-part-in-magento
+
+------------------disable billing agreements and recurring profile----------------------------------
+http://www.magentocommerce.com/boards/viewthread/242233/
+
+----------------------------------------------Extensions---------------------------------------------
+1) For activating newly register by admin
+http://www.magentocommerce.com/magento-connect/vinai/extension/489/customer-activation
+2) Disable any email notifications
+http://www.magentocommerce.com/magento-connect/catalog/product/view/id/12837/s/disable-email-notifications-8993/
+
+------------------------------How to add Facebook like and Tweeter link------------------------------------------
+app/design/frontend/base/default/template/catalog/product/view.phtml
+<div class="product-name">
+  <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+  <div id="fb-root"></div>
+  <script src="
+http://connect.facebook.net/en_US/all.js
+#appId=181097698614858&amp;xfbml=1"></script>
+  <fb:like href="<?php echo $_product->getProductUrl() ?>" send="false" show_faces="false"></fb:like>
+</div>
+* insert data/info between the php
+<div class="tweet">
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php ?>" data-text="<?php ?>" data-count="horizontal" data-via="jakerutter">Tweet</a>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+-------------------------------Change text on 'Thank you for registering with..'---------------------
+System -> Manage Store -> Edit Store name
+---------------------------------Locating magento's sidebars-----------------------------------------
+http://www.templatemonster.com/help/locating-magento-sidebar-modules.html
+
+---------------------------------Make CMS block translate to different language----------------------
+http://jagdeepbanga.com/blog/magento_how_add_translation_ability_into_cms_page_or_static_block.html
+try Mage_Page.csv
+*Convert special characters to html equivalent
+
+---------------------------------Searching for specific text in all files----------------------------
+SSH
+goto folder -> text = 'Grand Total'
+grep 'Grand Total'  app/locale/ -rsn
+------------------------------------------Adding Custom fields---------------------------------------
+http://www.excellencemagentoblog.com/customer-registration-fields-magento1-6
+
+-------------------------------Make Magento run faster-----------------------------------------------
+http://www.blastedthing.com/magento/questions/mag-9-methods-to-speed-up-magento-a-guide-to-making-magento-faster/
+
+-------------------Magento Translation---------------------------------------------------------------
+app/design/frontend/[interface]/[theme]/locale/es_ES/translate.csv
+*For translating category and product, translate them manual by switching to the Storeview.
+
+-------------------Display/Get Store Code------------------------------------------------------------
+<div class="page stor-<?php echo Mage::app()->getStore()->getCode() ?>">
+
+-------------------Get current store locale----------------------------------------------------------
+Mage::app()->getLocale()->getDefaultLocale()
+
+-------------------Change the currency format--------------------------------------------------------
+lib/Zend/Locale/Data/en.xml
+change to en.xml to de_DE.xml if using different language
+flush all cache to see changes
+
+-------------------How to remove decimal at price----------------------------
+copy 
+code/core/Mage/Directory/Model/Currency.php
+create same directory at code/core/Mage/Directory/Model/
+
+find line 194
+ public function format($price, $options=array(), $includeContainer = true, $addBrackets = false)
+    {
+        return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
+    }
+
+replace the 2 with 0

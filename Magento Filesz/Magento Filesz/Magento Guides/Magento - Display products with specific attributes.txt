@@ -1,0 +1,101 @@
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+// instantiate product model
+$product = Mage::getModel('catalog/product');
+
+// get option id on attribute 'featured' with the value 'yes'
+$source = $product->getResource()->getAttribute('featured')->getSource();
+$optionId = Mage::getSingleton('catalog/config')->getSourceOptionId($source, 'yes');
+
+
+// load a product collection filtered by featured=yes
+$productCollection = $product->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('featured', $optionId)
+    ->load();
+
+// process the collection. display the products/details that have 'yes' featured attribute
+foreach ($productCollection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+	// get price from catalog price rules (discounted 15%)
+	$catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+	<a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+    	<img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(224, 224); ?>" style="display: inline-block; width: 224px; height: 188px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+		<div class="pname"><?php echo $prod->getName(); ?></div>
+		<div class="sprice"><?php echo '$'.$catprice; ?></div>
+		<!--div class="price"><?php echo $prod->getPrice(); ?></div-->
+    </a>
+<?php
+	}
+?>
+</div>
+</div>
+
+// Load product collection
+
+$model = Mage::getModel('catalog/product') //getting product model
+ 
+$_product = $model->load($productid); //getting product object for particular product id
+ 
+echo $_product->getShortDescription(); //product's short description
+echo $_product->getDescription(); // product's long description
+echo $_product->getName(); //product name
+echo $_product->getPrice(); //product's regular Price
+echo $_product->getSpecialPrice(); //product's special Price
+echo $_product->getProductUrl(); //product url
+echo $_product->getImageUrl(); //product's image url
+echo $_product->getSmallImageUrl(); //product's small image url
+echo $_product->getThumbnailUrl(); //product's thumbnail image url  
+
+// Product ID from Product Name
+
+<?php
+$product_name = 'Test Product'; //product name
+$model = Mage::getModel('catalog/product') //getting product model
+$collection = $model->getCollection(); //products collection
+foreach ($collection as $product) //loop for getting products
+{                   
+                     
+    $model->load($product->getId());
+    $pname = $model->getName();  
+    if(strcmp($pname,$product_name)==0)
+    {
+    $id = $product->getId();
+    }               
+}
+echo 'Required ID->'.$id; //id of product
+?>
+
+// Display category page and its subcategory
+$children = Mage::getModel('catalog/category')->getCategories(10);
+foreach ($children as $category) {
+    echo $category->getName();
+}
+
+
+// Load by name  
+$_category = Mage::getModel('catalog/category')->loadByAttribute('name', 'Ruby Ring');  
+$_product = Mage::getModel('catalog/product')->loadByAttribute('name', 'emerald earring');  
+  
+// Load by SKU  
+$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', 'Eram18j4');  
+  
+//Load by ID (just load):  
+$_product = Mage::getModel('catalog/product')->load($productID); 
+
+//Load current product on page
+$_productid = Mage::registry('current_product')->getId(); 
+$_Product = Mage::getModel('catalog/product')->load($_productid);
+
+//Show attribute value
+
+$product_id = $_product->getId();
+$_newProduct = Mage::getModel('catalog/product')->load($product_id);
+$attrib = $_newProduct->getAttributeText('attribute_name');
+

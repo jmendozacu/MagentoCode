@@ -1,0 +1,21 @@
+
+
+String Manipulations
+
+$url = Mage::helper('core/url')->getCurrentUrl(); //http://domain.com/shoes.html
+
+$baseurl = basename($url); //outputs shoes.html
+
+$bits = explode('/',$url); //explode string using '/'
+
+$defurl = str_replace('.html','', $bits[3]); //outputs shoes -  replacees .html with empty space
+
+
+
+Force redirect URL
+
+
+$newurl = 'location:'.$errurl;
+header($newurl);
+exit(); 
+

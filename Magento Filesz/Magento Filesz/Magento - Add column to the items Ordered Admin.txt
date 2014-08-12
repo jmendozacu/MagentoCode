@@ -1,0 +1,10 @@
+
+
+app/design/adminhtml/default/default/template/sales/order/view/items/renderer/default.phtml
+
+Change value of items on <td> tags
+
+To change the header
+
+/app/design/adminhtml/default/default/template/sales/order/view/items.phtml
+

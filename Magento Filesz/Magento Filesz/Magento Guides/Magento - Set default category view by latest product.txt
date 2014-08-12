@@ -1,0 +1,13 @@
+1) copy app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
+to      app/code/local/Mage/Catalog/Block/Product/List/Toolbar.php
+
+2) edit Toolbar.php
+protected $_direction = ‘asc’; 
+to 
+protected $_direction = ‘desc’; 
+
+Tested: ver 1.5.1
+
+
+Other scripts (not yet tested)
+

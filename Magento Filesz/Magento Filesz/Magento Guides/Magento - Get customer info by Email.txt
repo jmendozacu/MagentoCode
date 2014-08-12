@@ -1,0 +1,8 @@
+$CustomerEmail = "email address";
+$collection = Mage::getModel("customer/customer")->getCollection()->addAttributeToSelect("*")
+                  ->addFieldToFilter("email",$CustomerEmail);
+
+foreach ($collection as $customer)
+{
+    echo $fullname = $customer["firstname"]." ".$customer["lastname"];
+} 

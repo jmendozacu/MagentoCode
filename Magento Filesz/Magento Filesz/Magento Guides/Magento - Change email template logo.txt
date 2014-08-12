@@ -1,0 +1,23 @@
+How to change email template with custom header
+1.Upload your logo using ftp: /skin/frontend/default/modern/images/logoname.jpg
+
+2.On the admin panel. System->Transactional Email-> Add New Template
+A.Load temple (ie. From Template dropdown choose the kind of email you will modify, let’s say New Order)
+B.Click Load Template
+C.Template Name, name your template.
+D.Template Content
+Find this line   <!-- [ header starts here] -->
+Overwrite the line from <tr>…</tr> to this
+<tr>
+   <td valign="top">
+   <a href="{{store url=""}}"><img src="{{skin url="images/logo.jpg" _area='frontend' _theme='templatename'}}" border="0"/></a>
+   </td>
+</tr>
+Where skin url="images/companyheaderlogo.jpg" (this could a .jpg ,.png. or .gif file)
+_theme='templatename' 
+E.Save Template and/or Preview Temple to see if you did it correctly 
+
+3.After saving, Go to System->Configuration->Sales->Sales Emails
+On New Order Confirmation Template, select the template from the dropdown the template you created. 
+	
+Click Save Config and your done.

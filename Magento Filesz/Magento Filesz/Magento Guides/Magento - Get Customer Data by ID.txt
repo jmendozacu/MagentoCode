@@ -1,0 +1,23 @@
+Get by ID
+
+
+$customer_id = 1; // set this to the ID of the customer.
+$customer = Mage::getModel('customer/customer')->load($customer_id);
+
+
+$email = $customer->getEmail();// To get Email Id of a customer
+$firstname = $customer->getFirstname();// To get Firstname of a customer
+$lastnam e= $customer->getLastname();// To get Last name of a customer
+
+
+Get by Email
+
+
+$CustomerEmail = "email address";
+$collection = Mage::getModel("customer/customer")->getCollection()->addAttributeToSelect("*")
+                  ->addFieldToFilter("email",$CustomerEmail);
+
+foreach ($collection as $customer)
+{
+    echo $fullname = $customer["firstname"]." ".$customer["lastname"];
+} 

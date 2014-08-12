@@ -1,0 +1,11 @@
+Access cpanel / phpmyAdmin
+
+core_config_data
+
+on path  
+ web/unsecure/base_url
+and
+ web/secure/base_url
+
+check value if the same as site
+(i.e. www.yoursite.com)

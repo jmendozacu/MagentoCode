@@ -1,0 +1,12 @@
+Wyomind Order Eraser - Free
+Deletes order
+Test: 1.7.0
+http://www.magentocommerce.com/magento-connect/orders-eraser.html
+
+Clear and Fizzy Reduced Checkout - Free
+Removes login, shipping, payment, etc...
+Tested : 1.7.0
+http://www.magentocommerce.com/magento-connect/reduced-checkout.html
+
+Mini-Cart
+http://www.magentocommerce.com/magento-connect/header-mini-cart-3419.html
