@@ -1,0 +1,77 @@
+﻿
+$products = Mage::getModel('catalog/product')
+->getCollection()
+->addAttributeToSelect(array('sku','name', 'product_url', 'image'))
+->addAttributeToFilter('sku', array('like' => '%A%'))
+->load();
+
+
+That returns a $products collection, in which we choose to see the attributes: sku, name, product_url and image. That collection is filtered by its sku like ‘%A%’, as we clearly see using AddAttributeToFilter() function. But, ¿What other statements we can use with this function to obtain our queries?
+
+Here you have a list with options you can use, with examples:
+
+Equals: eq
+$_products->addAttributeToFilter('status', array('eq' => 1));
+
+Not Equals – neq
+$_products->addAttributeToFilter('sku', array('neq' => 'spiderman'));
+
+Contains – Like – like
+$_products->addAttributeToFilter('sku', array('like' => '%spiderman%'));
+
+Not contains – not Like – nlike
+$_products->addAttributeToFilter('sku', array('nlike' => '%spiderman%'));
+
+Contiene – In – in
+$_products->addAttributeToFilter('id', array('in' => array(15,25,35,40,41,42,43)));
+
+No contiene – Not In – nin
+$_products->addAttributeToFilter('id', array('nin' => array(15,25,35,40,41,42,43)));
+
+Null- null
+$_products->addAttributeToFilter('description', 'null');
+
+not Null- null
+$_products->addAttributeToFilter('description', 'notnull');
+
+Greater than – gt
+$_products->addAttributeToFilter('price', array('gt' => 5));
+
+Less than – lt
+$_products->addAttributeToFilter('price', array('lt' => 25));
+
+Greater than o equals to – gteq
+$_products->addAttributeToFilter('price', array('gteq' => 5));
+
+Less than o equals to – lteq
+$_products->addAttributeToFilter('price', array('lteq' => 25));
+
+All than is valid to use in product attributes, you know, in class instance
+
+Mage::getModel('catalog/product')
+If we want to use it in other classes, try withAddFieldToFilter function, whose uses in the same way.
+
+
+
+$_helper = $this->helper('catalog/output'); 
+
+echo 'Weight: '.$_helper->productAttribute($_product, $_product->getweight(), '');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://www.magentoworks.net/manipulate-collections-of-products-in-magento
+http://www.expertwebadvisor.com/addattributetofilter-conditions-in-magento/
+http://www.magentoworks.net/manipulate-collections-of-products-in-magento

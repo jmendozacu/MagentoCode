@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bmenu_Bmodule>
+            <active>true</active>
+            <codePool>local</codePool> *the location of the module is at /app/code/local/, use community if its at the community folder
+        </Bmenu_Bmodule>
+    </modules>
+</config>

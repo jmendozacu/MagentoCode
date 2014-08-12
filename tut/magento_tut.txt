@@ -1,0 +1,4 @@
+http://www.magentocommerce.com/knowledge-base/entry/quick-start-guide
+http://www.magentocommerce.com/design_guide/articles/working-with-magento-themes
+http://www.magentocommerce.com/wiki/3_-_store_setup_and_management/so_you_want_a_real_store_and_not_a_demo
+http://tomrobertshaw.net/2010/09/37-point-magento-pre-launch-checklist/

@@ -1,0 +1,42 @@
+Filter product by status = enabled
+
+<?php
+
+$collection = Mage::getModel('catalog/product')
+			->getCollection()
+			->addAttributeToSelect('*')
+			->addAttributeToSort('created_at', 'DESC')
+			->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
+		
+		foreach($collection as $product) 
+			
+		{
+		...
+		}
+
+
+
+?>
+---------------------------------------------------------------
+
+For product status
+$collection->addFieldToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+
+Other options avaliable are: 
+STATUS_ENABLED 
+STATUS_DISABLED
+
+For product visibility
+$collection->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH);
+
+Other options avaliable are: 
+VISIBILITY_NOT_VISIBLE 
+VISIBILITY_IN_CATALOG 
+VISIBILITY_IN_SEARCH 
+VISIBILITY_BOTH
+
+
+
+Filter product by type
+
+->addAttributeToFilter('type_id', 'downloadable')

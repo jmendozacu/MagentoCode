@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <bmenu_bmodule>
+            <version>1.0.0</version>
+            <depends>
+                <!-- no dependencies -->
+            </depends>
+        </bmenu_bmodule>
+    </modules>
+    <global>
+        <models />
+        <blocks />
+        <resources />
+        <extraconfig />
+        <helpers>
+            <bmodule>
+                <class>Bmenu_Bmodule_Helper</class>
+            </bmodule>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <bmenu_bmodule>
+                <use>admin</use>
+                <args>
+                    <module>Bmenu_Bmodule</module>
+                    <frontName>bmodule</frontName> // this will be used for <action>bmodule/bmenus</action> on adminhtml.xml
+                </args>
+            </bmenu_bmodule>
+        </routers>
+    </admin>
+</config>

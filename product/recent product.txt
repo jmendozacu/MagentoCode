@@ -1,0 +1,29 @@
+	<div class="head-contain-pub"><h1>E-Selfpres Publications</h1>
+		<div class="latest-pub-list">
+			<?php
+			$query = mysql_query("select * from catalog_product_entity order by entity_id desc limit 0, 3");
+				if(mysql_num_rows($query)>0)
+				{
+					while($row = mysql_fetch_array($query))
+					{
+						$prodid = $row['entity_id'];
+						
+		
+						$product = Mage::getModel('catalog/product')->load($prodid);
+		
+						
+						$prod_url = $product->getProductUrl();
+						$prod_url = str_replace('search_books.php/','index.php/',$prod_url);
+						?>
+						<a href="<?php echo $prod_url; ?>" title="<?php echo $product->getName(); ?>">
+						<div class="book-latest" style="1px solid #e3e3e3">
+							<img src="<?php echo $product->getImageUrl(); ?>" />
+						</div>
+						</a>
+						
+						<?php
+					}
+				}
+			?>
+		</div>
+	</div>

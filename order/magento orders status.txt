@@ -1,0 +1,48 @@
+ 	############################################################
+	//get all product ID
+
+		$get_all_prod_id = mysql_query("select order_id, product_id from sales_flat_order_item ");
+		while($row = mysql_fetch_array($get_all_prod_id)){
+			 $prod_id_db = $row['product_id'];
+			 $order_id = $row['order_id'];
+			 
+			//get status of the product idate
+			$get_all_product_status = mysql_query("select status from sales_flat_order_grid where entity_id = '$order_id' ");	
+			while($row2 = mysql_fetch_array($get_all_product_status)){
+				  $prod_status = $row2['status'];
+				  
+				//get all simple product and update to status  = 1
+				$get_all_single = mysql_query("select * from book_buy where prod_id = '$prod_id_db' && status = '0' ")or die(mysql_error());
+				$check_if_status_is_1 = mysql_num_rows($get_all_single);
+				if($check_if_status_is_1 > 0){
+						while($row3 = mysql_fetch_array($get_all_single)){
+							  $single_product_id = $row3['prod_id'];
+							  $book_id = $row3['book_id'];
+							  
+							  //get downloadable product_id or simple product id for enable the product
+							  $get_id_product = mysql_query("select product_id from book_project where product_id = '$book_id' ");
+							  $get_id_row = mysql_fetch_array($get_id_product);
+							  $get_book_project_id = $get_id_row['product_id'];
+							  
+							  //check if the same
+								if($prod_id_db == $single_product_id && $prod_status == 'complete' ){
+									Mage::getModel('catalog/product_status')->updateProductStatus($get_book_project_id, 2, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+									Mage::getModel('catalog/product_status')->updateProductStatus($get_book_project_id, 0, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+									Mage::getModel('catalog/product_status')->updateProductStatus($get_book_project_id, 1, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+									//set status to paid
+									$update_status = mysql_query("UPDATE book_buy SET status = '1' WHERE  prod_id = '$single_product_id' && book_id = '$book_id'  ");
+									Mage::register('isSecureArea', true);
+									try{ 
+									Mage::getModel("catalog/product")->load( $single_product_id  )->delete();
+									}catch(Exception $e){
+										
+									}
+									
+							  } 
+							  
+						}
+				
+				}  
+				  
+			}		
+		}  

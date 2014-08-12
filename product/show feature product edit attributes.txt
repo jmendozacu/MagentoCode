@@ -1,0 +1,38 @@
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+// instantiate product model
+$product = Mage::getModel('catalog/product');
+
+// get option id on attribute 'featured' with the value 'yes'
+$source = $product->getResource()->getAttribute('featured')->getSource();
+$optionId = Mage::getSingleton('catalog/config')->getSourceOptionId($source, 'yes');
+
+
+// load a product collection filtered by featured=yes
+$productCollection = $product->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('featured', $optionId)
+    ->load();
+
+// process the collection. display the products/details that have 'yes' featured attribute
+foreach ($productCollection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(224, 224); ?>" style="display: inline-block; width: 224px; height: 188px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <div class="sprice"><?php echo '$'.$catprice; ?></div>
+  <!--div class="price"><?php echo $prod->getPrice(); ?></div-->
+    </a>
+<?php
+ }
+?>
+</div>
+</div>

@@ -1,0 +1,8 @@
+
+http://www.magentocommerce.com/boards/viewthread/296763/
+-------------------
+To apply coupon code: 
+http://www.example.com/index.php/checkout/cart/couponPost?coupon_code=WQ9D-XXXX
+where WQ9D-XXXX is the coupon code.
+
+additional magento also provides parameter for return URL

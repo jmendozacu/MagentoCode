@@ -1,1 +1,0 @@
-<?php/** Copyright (c) 2013 www.magebuzz.com */class Magebuzz_Affiliate_Model_Campaignrule extends Mage_SalesRule_Model_Rule {	protected $_eventPrefix = 'affiliate_campaign_rule';		public function _construct() {    		parent::_construct();		$this->_init('affiliate/campaignrule', 'rule_id');	}}

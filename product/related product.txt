@@ -1,0 +1,37 @@
+		<?php
+		    $categoryIds = $_product->getCategoryIds();
+			$_category = Mage::getModel('catalog/category')->load($categoryIds);
+			$url1 = $_category->getUrlPath();
+				?><button class='rturn' onclick="setLocation('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).''.$url1; ?>')">RETURN TO PRODUCT LIST</button><?php 
+			
+		?>		
+			
+			
+			
+			
+			
+			
+			
+			<?php 
+			$collection = Mage::getModel('catalog/product_link')
+								->getCollection()
+								->addFieldToFilter('product_id',$_product->getId())     
+								->addFieldToFilter('link_type_id','1');
+			$related_products = $collection->getData();
+
+			foreach($related_products as $prod => $key){
+					$prodId =  $related_products[$prod]['linked_product_id'];
+					 $_product=Mage::getModel('catalog/product')->load($prodId);
+					$pId = $_product->getId();
+					$product = Mage::getModel('catalog/product')->load($pId);
+					$full_path_url = Mage::helper('catalog/image')->init($_product, 'thumbnail');
+					?>
+					<li>
+					<a href='<?php  echo $_product->getUrlPath(); ?>'>
+					<div style='width:100px; height:120px;'><img style="width:100px;" src="<?php echo $full_path_url;?>"><div>
+					<center><?php echo $_product->getName(); ?></center>
+					</a>
+					</li>
+					<?php	
+			}
+			?>

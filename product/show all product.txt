@@ -1,0 +1,32 @@
+<div class="block featured_prod">
+<h1>Online Shop</h1>
+
+<div class="block-title">
+  <strong><span>brandnew Product</span></strong>
+</div>
+<div class="block-content">
+
+<?php 
+$collection = Mage::getModel('catalog/product')
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+
+foreach ($collection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(150, 190); ?>" style="display: inline-block; width: 150px; height: 190px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <!--div class="short-description"><?php echo nl2br($prod->getShortDescription()) ?></div-->
+  <div class="price"><?php echo '$'.$catprice; ?><?php echo number_format($prod->getPrice(),2); ?></div>
+    <span id='addtobasket'>Add to Cart</span>
+	</a>
+<?php
+ }
+?>
+
+</div>
+</div>

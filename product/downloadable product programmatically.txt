@@ -1,0 +1,192 @@
+http://stackoverflow.com/questions/14728314/programmatically-create-downloadable-product-showing-out-of-stock
+
+				$rand = rand(9999,99999999);
+ //move_uploaded_file($_FILES['myFile']['tmp_name'],Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB));
+ //move_uploaded_file($_FILES['myFile']['tmp_name'],'images/'.$_FILES['myFile']['name']);
+//Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)
+	$img_name = $_FILES["myFile"]["name"];
+	$move = 'images/';
+	if (move_uploaded_file($_FILES['myFile']['tmp_name'], $move.''.$rand.'-'.$_FILES["myFile"]['name'])) {
+	$img_name_loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."images/".$rand.'-'.$img_name;
+	$img_name = $rand.'-'.$img_name;
+	} else { ?>
+	<script>alert('Error try again');</script>
+	<?php }
+
+	
+
+
+				$cus_ids = $_POST['cus_id'];		
+				$chapter_id = $_POST['chapter_id'];		
+				$product_name = $_POST['product_name'];		
+				$word_count = $_POST['word_count'];		
+				$book_summary = $_POST['book_summary'];		
+				$book_edition = $_POST['book_edition'];		
+				$book_author = $_POST['book_author'];		
+				$chaps = $_POST['chaps'];		
+				$book_projectname = $_POST['book_projectname'];		
+				$customer_id = $_POST['customer_id'];		
+
+		  //update 
+		 $update = mysql_query("UPDATE book_project set sku = '$rand', published = 'Yes' WHERE customer_id = '$cus_id' && id = '$chapter_id'  ")or die(mysql_error());
+		//echo "update";	
+/////////////////////////////////////////
+
+Mage::getSingleton("core/session", array("name" => "frontend"));
+
+    $storeId = Mage::app()->getStore()->getId(); // get store id
+    $filePath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+$downloadlink_preview = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'index.php/preview-pdf/?projectdname='.$getname.''; 		
+$downloadlink_epub = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'pdf_print/epub/EPub.book.php?prod_name='.$projectID.'&&customer='.$customerName.''; 	
+    try {
+        $product = Mage::getModel('catalog/product');
+        $product->setStoreId($storeId);
+        $product->setWebsiteIds(array(
+                Mage::app()->getStore($storeId)->getWebsiteId()));
+        $product->setAttributeSetId(4);
+        $product->setHasOptions(4);
+        $product->setTypeId('downloadable');
+        $product->setSku($rand);
+        $product->setPrice('1.23');
+        $product->setStatus(1);
+        $product->setVisibility(4);
+        $product->setTaxClassId(0);
+        $product->setStockData(array('is_in_stock'=>1, 'qty' => 99));
+        $product->setLinksPurchasedSeparately(0);
+        $product->setEnableGooglecheckout(0);
+        $product->setIsImported(0);
+        $product->setLinksExist(false);
+        $product->setDescription('setDescription');
+        $product->setShortDescription('setShortDescription'); //added, meta description to 'short description' field, you can change this value
+        $product->setMetaKeyword('setMetaKeyword');
+        $product->setCustomLayoutUpdate(NULL);
+        $product->setName($product_name); 
+/* 		$product->setImage('http://72.18.195.90/~admin/test/images/logo.jpg');	
+*/
+$im = 'http://72.18.195.90/~admin/test/images/logo.jpg';
+
+// Add three image sizes to media gallery
+$mediaArray = array(
+    'thumbnail'   => $img_name,
+    'small_image' => $img_name,
+    'image'       => $img_name,
+);
+
+// Remove unset images, add image to gallery if exists
+$importDir = 'images/';
+
+foreach($mediaArray as $imageType => $fileName) {
+    $filePath = $importDir.$fileName;
+    if ( file_exists($filePath) ) {
+        try {
+            $product->addImageToMediaGallery($filePath, $imageType, false);
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    } else {
+        echo "Product does not have an image or the path is incorrect. Path was: {$filePath}<br/>";
+    }
+}
+
+
+
+
+		$isbn = '222-3-44-246842-1';
+		$total_book_words = str_word_count($total_words);
+		
+        $product->setBook_edition($book_edition);
+        $product->setBook_language('EN');
+        $product->setBook_pages($chaps);
+        $product->setBook_isbn($isbn);
+        $product->setBook_author($book_author);
+        $product->setBook_preview($downloadlink_preview);
+        $product->setBook_word_count($total_book_words);
+        $product->setBook_format($book_formats);
+        $product->setBook_status($status);
+        $product->setBook_preview_epub($downloadlink_epub);
+        $product->setMetaTitle('setMetaTitle');
+        $product->setMetaDescription('setMetaDescription');
+        $product->setBook_projectname($book_projectname);
+        $product->setBook_customer_id($customer_id);
+        $product->setBook_sku($rand);
+        $product->setLinksTitle("Download");
+        $product->setLinkFile("link file");
+        $product->setCategoryIds(array(23)); # some cat id's, .
+		
+		
+		
+		
+
+ 
+						$product->save();
+						$_highfilePath = '43tdgg34t3';
+						$linkfile = 'asfasfsafsaf';
+						$size = "array(0,0,612,792)-portrait";
+$downloadlink = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'pdf_print/download.php?prod_ids='.$projectID.'&&paper='.$size.'&&customer_name='.$customerName.''; 
+//$downloadlink_preview = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'pdf_print/preview.php?prod_ids='.$projectID.'&&paper='.$size.'&&customer_name='.$customerName.'';					
+$downloadlink_preview = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'index.php/preview-pdf/?projectdname='.$getname.''; 			
+							$linkModel = Mage::getModel('downloadable/link')->setData(array(
+							'product_id' => $product->getId(),
+							'sort_order' => 0,
+							'number_of_downloads' => 0, // Unlimited downloads
+							'is_shareable' => 2, // Not shareable
+							'link_url' => $downloadlink_epub,
+							'link_type' => 'url',
+							'link_file' => json_encode($downloadlink_epub),
+							'sample_url' => $downloadlink_epub,
+							'sample_file' => json_encode($downloadlink_epub), 
+							'sample_type' => 'url',
+							'use_default_title' => false,
+							'title' => 'downloadable link',
+							'default_price' => 0,
+							'price' => 0,
+							'store_id' => 0,
+							'website_id' => $product->getStore()->getWebsiteId(),
+						));
+						$linkModel->setLinkFile($linkFileName)->save();
+						
+						
+						//epub
+						
+						$_highfilePath = '43tdgg34t3';
+						$linkfile = 'asfasfsafsaf';
+						$size = "array(0,0,612,792)-portrait";
+//$downloadlink = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'pdf_print/download.php?prod_ids='.$projectID.'&&paper='.$size.'&&customer_name='.$customerName.''; 
+//$downloadlink_preview = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'index.php/preview-pdf/?projectdname='.$getname.''; 			
+$downloadlink = 'download ';
+$downloadlink_preview = 'download sample';
+							$linkModel = Mage::getModel('downloadable/link')->setData(array(
+							'product_id' => $product->getId(),
+							'sort_order' => 0,
+							'number_of_downloads' => 0, // Unlimited downloads
+							'is_shareable' => 2, // Not shareable
+							'link_url' => $downloadlink,
+							'link_type' => 'url',
+							'link_file' => json_encode($downloadlink),
+							'sample_url' => $downloadlink_preview,
+							'sample_file' => json_encode($downloadlink_preview), 
+							'sample_type' => 'url',
+							'use_default_title' => false,
+							'title' => 'downloadable link',
+							'default_price' => 0,
+							'price' => 0,
+							'store_id' => 0,
+							'website_id' => $product->getStore()->getWebsiteId(),
+						));
+				
+						$linkModel->setLinkFile($linkFileName)->save();
+  
+
+
+   	
+    } catch (Exception $e) {
+        echo "Exception : ".$e->getMessage();
+        exit;
+    }
+	?>
+	<script>alert('Book published!!!');</script>
+	<meta http-equiv="refresh" content="0;url=<?php echo $url.'/myprojects'; ?>" />
+	<?php 
+	///////////////////////////////	
+		}

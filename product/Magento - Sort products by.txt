@@ -1,0 +1,29 @@
+Attribute is name
+Order is descending
+
+
+$collection = Mage::getModel('catalog/product')
+			->getCollection()
+			->addAttributeToSort('name', 'DESC');
+Attribute is name
+Order is ascending
+
+
+$collection = Mage::getModel('catalog/product')
+			->getCollection()
+			->addAttributeToSort('name', 'ASC');
+
+
+
+Sort product with category
+
+$collection = Mage::getModel('catalog/category')->load($categoryId)
+             ->getProductCollection()
+             ->addAttributeToSort('name', 'ASC');
+
+
+Sort product with Date created
+
+$collection = Mage::getModel('catalog/category')
+             ->getProductCollection()
+             ->addAttributeToSort('created_at', 'ASC');

@@ -1,0 +1,5 @@
+				try{ 
+				Mage::getModel("catalog/product")->load( $prod_id_db  )->delete();
+				}catch(Exception $e){
+					//echo "Delete failed"; 
+				}

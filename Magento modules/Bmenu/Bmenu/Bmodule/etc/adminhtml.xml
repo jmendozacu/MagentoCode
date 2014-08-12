@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <bmenu_menu translate="title" module="bmodule"> *Use the module name in this case, its 'bmodule'
+            <title>Bmenu 1</title>
+            <sort_order>2</sort_order>
+           
+	    <children>                                          
+                <index module="bmodule" translate="title">
+                    <title>Sub menu 1</title>
+                    <sort_order>1</sort_order>
+                     <action>bmodule/index/index</action>
+                </index>
+                <list module="bmodule" translate="title">
+                    <title>Sub menu 2</title>
+                    <sort_order>2</sort_order>
+                     <action>bmodule/bmenus</action> 
+                </list>
+            </children>
+        </bmenu_menu>
+    </menu>
+</config>

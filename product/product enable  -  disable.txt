@@ -1,0 +1,3 @@
+$_product=Mage::getModel('catalog/product')->load($book_id_db);
+//Mage::getModel('catalog/product_status')->updateProductStatus($book_id_db, 2, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+$_product->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED)->save();

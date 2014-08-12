@@ -1,0 +1,1 @@
+echo Mage::getModel('catalog/product_media_config')->getMediaUrl( $prod1->getImage() );

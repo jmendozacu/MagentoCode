@@ -1,0 +1,164 @@
+
+
+$product_id = Mage::registry('current_product')->getId();
+$_product=Mage::getModel('catalog/product')->load($product_id);
+
+
+
+    $product_data["id"]=$_product->getId();
+    $product_data["name"]=$_product->getName();
+    $product_data["short_description"]=$_product->getShortDescription();
+    $product_data["description"]=$_product->getDescription();
+    $product_data["price"]=$_product->getPrice();
+    $product_data["special price"]=$_product->getFinalPrice();
+    $product_data["image"]=$_product->getThumbnailUrl();
+    $product_data["model"]=$_product->getSku();
+    $product_data["color"]=$_product->getAttributeText('color'); //get cusom attribute value
+
+
+    $storeId = Mage::app()->getStore()->getId();
+    $summaryData = Mage::getModel('review/review_summary')->setStoreId($storeId)  ->load($_product->getId());
+    $product_data["rating"]=($summaryData['rating_summary']*5)/100;
+
+    $product_data["shipping"]=Mage::getStoreConfig('carriers/flatrate/price');
+
+    if($_product->isSalable() ==1)
+        $product_data["in_stock"]=1;
+    else
+        $product_data["in_stock"]=0;
+
+
+    echo "<pre>";
+    print_r($product_data);
+    echo "</pre>";
+	
+	
+echo "<Br>";
+echo $sku = Mage::getModel('catalog/product')->load($_product->getId())->getSku();
+echo "<Br>";
+$my_product = Mage::getModel('catalog/product')->load($product_id); 
+echo $my_product_url = $my_product->getProductUrl();
+echo "<Br>";
+echo $my_product->getName(); //product name
+
+
+
+
+
+
+
+ $sku = 'my-product-sku';
+    $product = Mage::getModel('catalog/product')->load($sku, 'sku');
+     
+    if ($product->getId()) {
+        echo $product->getName();
+    }
+    else {
+        echo 'Product not found with SKU of ' . $sku;
+    }
+
+
+
+	
+	
+	
+	
+	
+	
+	
+   $product_sku = $rand; // use your own sku number
+   $product_id = Mage::getModel("catalog/product")->getIdBySku( $product_sku );
+   
+   
+   
+   
+   
+   
+echo image   
+$product_id = $this->getProduct()->getId();
+$product = Mage::getModel('catalog/product')->load($product_id); 
+$productType = $product->getTypeID();
+echo  Mage::helper('catalog/image')->init($product, 'thumbnail');
+
+
+
+
+
+
+enable / disable
+http://magento.stackexchange.com/questions/4968/how-can-i-get-a-products-status-for-a-store
+echo "enabling product... ";
+Mage::getModel('catalog/product_status')->updateProductStatus($product->getId(), 2, Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+
+echo "enabling product... ";
+$product->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED)->save();
+echo "done\n";
+
+Mage::getModel('catalog/product_status')->updateProductStatus($product->getId(), $storeId, Mage_Catalog_Model_Product_Status::STATUS_DISABLED);
+
+
+
+
+				//echo print_r(Mage::getModel('catalog/product_status')->getProductStatus($pid,2),true)."\n";
+				$p_status = print_r(Mage::getModel('catalog/product_status')->getProductStatus($pid,2),true);
+
+				$ex1 = explode('>',$p_status);
+				$exx =  $ex1[1];
+				$ex2 = explode(')',$exx);
+			    $p_id = $ex2[0];
+				
+				//check if product is enable 
+				2 = disable
+				1 = enable
+				
+				if($p_id == 2){
+				
+				}else{}
+				
+UPDATE detect if enable or disable
+
+
+<?php 
+foreach(Mage::getModel('catalog/product')->getCollection() as $product)
+{
+    $pid = $product->getId();
+		$_product = Mage::getModel('catalog/product')->load($pid);
+		 if($_product->getStatus() == 1){
+		   $_categories = $_product->getCategoryIds();
+		   $_category = Mage::getModel('catalog/category')->load($_categories[0]);
+			$url1 = $_category->getUrlPath();
+			$url2 = $_product->getUrlPath();
+			$url3 = str_replace(".html","/",$url1);
+			$url4 = $url3."".$url2;
+			echo $url4."<br>";
+		 }
+			
+		
+}
+?>
+
+
++++++++++product type++++++++++
+<?php if( $_product->getTypeId() == 'simple' ): ?>
+//your code for simple products only
+<?php endif; ?>
+
+<?php if( $_product->getTypeId() == 'grouped' ): ?>
+//your code for grouped products only
+<?php endif; ?>
+
+
+get product url by sku
+$url =  Mage::getModel('catalog/product')->loadByAttribute('sku',$sku)->getProductUrl();
+
+
+
+
+//get image
+$product = Mage::getModel('catalog/product')->load($pId);
+$full_path_url = Mage::helper('catalog/image')->init($_product, 'thumbnail');
+<img style="width:100px;" src="<?php echo $full_path_url;?>">
+
+
+
+
