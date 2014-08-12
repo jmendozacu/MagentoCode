@@ -1,0 +1,81 @@
+<div id='cus_category'>
+<h2>Category</h2>
+<?php 
+$layer = Mage::getSingleton('catalog/layer');
+$_category = $layer->getCurrentCategory();
+ $currentCategoryId = $_category->getId();
+?>
+ 
+<?php $_category_top = Mage::getModel('catalog/category')->load($currentCategoryId) ?>
+<?php $_subcategories_top = $_category_top->getChildrenCategories() ?>
+<?php 
+foreach($_subcategories_top as $subs_cat):
+	 $subs_cat->getId();
+endforeach;
+?>
+ 
+<?php $_helper = Mage::helper('catalog/category') ?>
+<?php $_categories = $_helper->getStoreCategories() ?>
+<?php $currentCategory = Mage::registry('current_category') ?>
+<?php if (count($_categories) > 0) {?>
+    <ul id='cus_category_ul'>
+		<?php $a = 0; ?>
+        <?php foreach($_categories as $_category){ ?>
+		<?php    $category_id = $_category->getId();
+		
+		?>
+            <li class='mainCat'>
+                <a href="<?php echo $_helper->getCategoryUrl($_category) ?>">
+                    <?php echo $_category->getName() ?>
+                </a>
+				
+				<!-- sub category -->
+				 <?php $_categoryGETSub = Mage::getModel('catalog/category')->load($_category->getId()) ?>
+                <?php $_subcategories = $_categoryGETSub->getChildrenCategories() ?>
+                <?php if (count($_subcategories) > 0){ ?>
+				<ul class='subCat'>
+				<?php $_category_sub = Mage::getModel('catalog/category')->load($category_id) ?>
+				<?php $_subcategories_sub = $_category_sub->getChildrenCategories() ?>
+				
+				<?php 
+				foreach($_subcategories_sub as $subs_sub_id){
+					 $show_parent_cat = $subs_sub_id->getId();
+					 ?><li> - <a href="<?php echo $_helper->getCategoryUrl($subs_sub_id) ?>"><?php echo $subs_sub_id->getName(); ?></a></li><?php
+					 }
+				?></ul><?php
+				 }?>
+			
+				
+			</li>
+			
+        <?php }  ?>
+    </ul>
+<?php } ?>
+
+
+</div>
+
+
+
+
+
+kung ara sa product view 
+get category name of the product 
+
+<?php 
+      $categoryIds = $_product->getCategoryIds();
+
+        if(count($categoryIds) ){
+            $firstCategoryId = $categoryIds[0];
+            $_category = Mage::getModel('catalog/category')->load($firstCategoryId);
+
+            echo $_category->getName();
+        }
+?>
+
+
+
+
+
+
+

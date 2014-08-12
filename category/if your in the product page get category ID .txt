@@ -1,0 +1,14 @@
+
+kung ara sa product view 
+get category name of the product 
+
+<?php 
+      $categoryIds = $_product->getCategoryIds();
+
+        if(count($categoryIds) ){
+            $firstCategoryId = $categoryIds[0];
+            $_category = Mage::getModel('catalog/category')->load($firstCategoryId);
+
+            echo $_category->getName();
+        }
+?>

@@ -1,0 +1,43 @@
+<?php 
+$url = Mage::getBaseUrl();
+?>
+<!--category-->
+<?php $_helper = Mage::helper('catalog/category') ?>
+<?php $_categories = $_helper->getStoreCategories() ?>
+<?php $currentCategory = Mage::registry('current_category') ?>
+<?php if(count($_categories) > 0){ ?>
+	        <?php foreach($_categories as $_category){ ?>
+			<?php    echo $category_id = $_category->getId(); ?>
+					<button  id='ajax_cats'  class="<?php echo $category_id; ?>">
+						<?php echo $_category->getName(); ?>
+					</button>
+			<Br>
+			<!-- get sub-->
+				<?php $_category_sub = Mage::getModel('catalog/category')->load($category_id); ?>
+				<?php $_subcategories_sub = $_category_sub->getChildrenCategories() ?>
+				<?php foreach($_subcategories_sub as $sub_cat){ ?>
+						<?php echo "--".$sub_cat_id = $sub_cat->getId(); ?>
+						        <button  id='ajax_cats'  class="<?php echo $sub_cat_id; ?>">
+                                    <?php echo $sub_cat->getName(); ?>
+                                </button>
+						<Br>
+				<?php } ?>
+			<!-- get sub end -->
+			<?php } ?>
+<?php } ?>
+<!--category-->
+
+
+
+//kung alang2 pwde man e jquery nga hasclass
+<script>
+ var j = jQuery.noConflict();
+j(document).ready(function(){
+	j('button').click(function(){
+	var myClass = this.className;
+	   //alert(myClass);
+	   j('.load_here').load('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>ajax_product.php?id='+myClass);
+	}) 
+ 
+});
+</script>

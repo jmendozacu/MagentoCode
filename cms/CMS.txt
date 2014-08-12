@@ -1,0 +1,5 @@
+from cms admin page
+{{block type="core/template" template="cms/sample.phtml"}}
+
+from .phtml file
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer')->toHtml() ?>

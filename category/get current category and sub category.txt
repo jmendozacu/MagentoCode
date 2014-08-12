@@ -1,0 +1,8 @@
+	echo $current_cat = Mage::registry('current_category')->getName()."<br />";
+	echo $current_catid = Mage::registry('current_category')->getId()."<br />";
+	
+	$m = Mage::getModel('catalog/category')
+        ->load($current_catid)
+        ->getParentCategory();
+		
+	echo $parent = $m->getName();

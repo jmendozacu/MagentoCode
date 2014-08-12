@@ -1,0 +1,3 @@
+{{block type="newsletter/subscribe" template="newsletter/subscribe.phtml"}}
+
+butang sa static block kag call sa cms

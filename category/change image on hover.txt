@@ -1,0 +1,5 @@
+http://stackoverflow.com/questions/15682097/magento-1-7-0-2-change-product-image-on-hover-in-catalog-page
+
+<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" onmouseover="this.src='<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(135) ?>';" onmouseout="this.src='<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(135) ?>';" /></a>
+
+above na sa sang   <div class="product-info">

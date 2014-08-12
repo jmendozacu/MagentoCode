@@ -1,0 +1,4 @@
+<?php $img = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'/media/catalog/category/'.Mage::getModel('catalog/category')->load($_category->getId())->getThumbnail() ?>  
+
+
+//echo $img = Mage::getModel('catalog/category')->load($_category->getId())->getImageUrl(); 

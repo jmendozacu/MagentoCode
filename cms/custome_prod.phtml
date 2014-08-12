@@ -1,0 +1,57 @@
+<?php
+//get custom product
+$categoryid = 10;
+$category = new Mage_Catalog_Model_Category();
+$category->load($categoryid);
+$collection = $category->getProductCollection();
+$collection->addAttributeToSelect('*');
+echo "<ul id='cus_prod_get'>";
+foreach ($collection as $prod) { 
+$prod_id =  $prod->getId();
+	//$rest = substr("abcdef", -3, 1); // retourne "d"
+		//$prod_id = $_product->getId();
+		$_product = Mage::getModel('catalog/product')->load($prod_id);
+		if($_product->getStatus()==1){
+		   $_categories = $_product->getCategoryIds();
+		   $_category = Mage::getModel('catalog/category')->load($_categories[0]);
+			$url1 = $_category->getUrlPath();
+			$url2 = $_product->getUrlPath();
+			$prod_name = $_product->getName();
+			$prod_picture = $_product->getImageUrl();
+		   //Do whatever you want to do with $url
+		   //...
+			//$bodytag = str_replace("%body%", "black", "<body text='%body%'>");
+			$new_url1 = str_replace(".html","/",$url1);
+			$url3 = $new_url1."".$url2; 
+		 } 
+ 
+ //echo "<a href=".Mage::helper('checkout/cart')->getAddUrl($_product).">".$prod_name."</a><br>";
+?>
+<li>
+<?php echo "
+<div id='cus_prod_img'>
+<a href='".$url3."'>
+<img src='".$prod_picture."' style='width:200px; height:200px; '> 
+</a>
+</div>";?>
+<?php echo "<div id='cus_prod_name'>".$prod_name."</div>"; ?>
+<button onclick="setLocation('<?php echo Mage::helper('checkout/cart')->getAddUrl($_product); ?>')">Add To Cart</button>
+</li>
+<?php
+ }
+echo "</ul>";
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

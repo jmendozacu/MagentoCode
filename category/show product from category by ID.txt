@@ -1,0 +1,48 @@
+<div id='s_dvd'>
+	<h2>Games Consoles at great prices!</h2>
+</div>
+
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+
+$categoryid = 22;
+
+$category = new Mage_Catalog_Model_Category();
+$category->load($categoryid);
+$collection = $category->getProductCollection();
+$collection->addAttributeToSelect('*');
+?>
+ <a href="#" id='s_dvd_text'>
+	<h3>OFFER2 TITLE</h3>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <p>
+		Cras dignissim tristique est, sit amen aliquam velit gravida id. Phasellus quam eros, malesuada ac imperdiet eu, vehicula id nibh.
+   </p>
+	</a>
+<?php
+foreach ($collection as $prod) { 
+
+		/* echo $prod->getSku().'<hr/>'; */
+
+	 // get price from catalog price rules (discounted 15%)
+	 $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+	?>
+	 <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+		 <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(150, 190); ?>" style="display: inline-block; width: 150px; height: 190px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+	  <div class="pname"><?php echo $prod->getName(); ?></div>
+	  <div class="price"><?php echo '$'.$catprice; ?><?php echo $prod->getPrice(); ?></div>
+		<span id='addtobasket'>Add to Cart</span>
+		</a>
+	
+<?php } ?>
+</div>
+</div>
