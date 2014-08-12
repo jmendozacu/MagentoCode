@@ -1,0 +1,13 @@
+How to view Magento Error Logs
+
+Mostly while working with Magento, you end up with serious errors or broken stuffs. So, Magento Error Logs come to the rescue here. Whenever you have a serious error on your site, you can just view your error logs and debug the error and get rid of that situation. As simple as it is.
+Many of you may be wondering, how to switch on Magento Error Logs or view it. So,here are the simple steps :
+1) Turn on your logging: Admin
+> Configuration > Developer > Log Settings > Enabled = Yes
+
+2) Watch your var/log/system.log and var/log/exception.log for raw information from this.
+
+You may run into file permission errors, so you might need to set your folder permissions appropriately.
+
+
+http://www.learnmagento.org/magento-tips-tricks/magento-error-logs/

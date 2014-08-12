@@ -1,0 +1,8 @@
+set to 4 columns
+ara lang sa una
+catalog.xml
+------------------------------
+<action method="setColumnCount"><columns>4</columns></action>
+http://www.collaboration133.com/magento-change-category-product-grid-layout-from-3-columns-to-4-columns/2384/
+
+ 

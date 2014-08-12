@@ -1,0 +1,805 @@
+﻿<?php echo $this->getSkinUrl('css/style.css')?>
+
+{{block type="catalog/products_list" category_id="6" template="catalog/product/list.phtml" }}
+.
+{{block type="core/template" template="cms/sample.phtml"}}
+{{block type="core/template" template="cms/shoponline.phtml"}}
+
+
+http://magebase.com/magento-tutorials/starting-a-new-design-package-and-theme-in-magento/
+category_page LOL
+
+
+
+menu-
+http://www.magentocommerce.com/magento-connect/responsive-custom-menu.html
+
+slideshow
+http://www.magentocommerce.com/magento-connect/interakting-slider.html
+ {{block type="interaktingslider/interaktingslider" name="interaktingslider"}}
+
+
+http://www.magentocommerce.com/magento-connect/free-youama-jquery-nivo-slider-1600.html
+
+http://www.magentocommerce.com/magento-connect/auguria-sliders-6065.html
+
+http://precisiondelta.com/newmagento/index.php/ammunition.html
+
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type='text/javascript'>
+$('#img_about').hide();
+if ($("body").hasClass("cms-about")) {
+		$('.breadcrumbs').hide();
+		$('#below_menu').hide();
+		$('#text_below_img').hide();
+		$('#img_about').show();
+		
+}
+if ($("body").hasClass("cms-prod-page")) {
+		$('.breadcrumbs').hide();
+		$('#below_menu').hide();
+		$('#text_below_img').hide();
+		$('#img_about').show();
+		
+}
+
+</script>
+
+
+
+
+
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type='text/javascript'>
+var j = jQuery.noConflict();
+
+j('#img_about').hide();
+if (j("body").hasClass("cms-about")) {
+		j('.breadcrumbs').hide();
+		j('#below_menu').hide();
+		j('#text_below_img').hide();
+		j('#img_about').show();
+		
+}
+
+</script>
+
+
+
+
+
+
+easy tab
+http://www.magentocommerce.com/magento-connect/magento-products-tabs-extension-easy-tabs.html
+
+
+
+sexyviners
+http://sexyviners.com/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img src="http://oi44.tinypic.com/dfjeo1.jpg" alt="" style='float:left;' width='430'/>
+<div id="text_con">
+<center>
+<h2 style="color: yellow;">All prices now include shipping! Order with confidence, knowing you are getting the best in quality, price and service!</h2>
+<h2 style="color: orange;">Law Enforcement Departments and Agencies Call for Special Pricing</h2>
+</center>
+<hr />
+<br>
+<br>
+Precision Delta Corporation is one of the nation's largest manufactures of pistol bullet components and remanufactured pistol ammunition offering only the very best products, services and prices in the industry.
+<br>
+<br>
+<br>
+In 1988 Precision Delta Corporation introduced a new line of ammunition, Precision Delta Match Ammunition. This new ammunition is extremely accurate and is used by top Police Practical Combat competitive shooters. It has been used by champions to win 12 NRA PPC National Championships since 1988.
+<br>
+<br>
+<br />
+ Philip Hemphill of the MS Highway Patrol not only is a 10 time NRA PPC National Champion but he also holds the PPC record of a perfect score of 1500 with 116x's while shooting Precision Delta Match Ammunition. Ken Dunlap also of the MS Highway Patrol and John Pride of the Los Angeles, CA Police Pistol Team have also won a NRA PPC National Championship while shooting Precision Delta Match Ammunition.
+<br />
+<br>
+<br>
+In addition to manufacturing, we are authorized distributors for Winchester Law Enforcement Ammunition and Combined Tactical Systems Less-Lethal Products.
+</div>
+
+
+
+
+
+
+
+
+
+show featured product 
+edit attributes
+----------------------
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+// instantiate product model
+$product = Mage::getModel('catalog/product');
+
+// get option id on attribute 'featured' with the value 'yes'
+$source = $product->getResource()->getAttribute('featured')->getSource();
+$optionId = Mage::getSingleton('catalog/config')->getSourceOptionId($source, 'yes');
+
+
+// load a product collection filtered by featured=yes
+$productCollection = $product->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('featured', $optionId)
+    ->load();
+
+// process the collection. display the products/details that have 'yes' featured attribute
+foreach ($productCollection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(224, 224); ?>" style="display: inline-block; width: 224px; height: 188px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <div class="sprice"><?php echo '$'.$catprice; ?></div>
+  <!--div class="price"><?php echo $prod->getPrice(); ?></div-->
+    </a>
+<?php
+ }
+?>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+SHow product from category
+-----------------------
+
+
+<div id='s_dvd'>
+	<h2>Games Consoles at great prices!</h2>
+</div>
+
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+
+$categoryid = 22;
+
+$category = new Mage_Catalog_Model_Category();
+$category->load($categoryid);
+$collection = $category->getProductCollection();
+$collection->addAttributeToSelect('*');
+?>
+ <a href="#" id='s_dvd_text'>
+	<h3>OFFER2 TITLE</h3>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <p>
+		Cras dignissim tristique est, sit amen aliquam velit gravida id. Phasellus quam eros, malesuada ac imperdiet eu, vehicula id nibh.
+   </p>
+	</a>
+<?php
+foreach ($collection as $prod) { 
+
+		/* echo $prod->getSku().'<hr/>'; */
+
+	 // get price from catalog price rules (discounted 15%)
+	 $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+	?>
+	 <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+		 <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(150, 190); ?>" style="display: inline-block; width: 150px; height: 190px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+	  <div class="pname"><?php echo $prod->getName(); ?></div>
+	  <div class="price"><?php echo '$'.$catprice; ?><?php echo $prod->getPrice(); ?></div>
+		<span id='addtobasket'>Add to Cart</span>
+		</a>
+	
+<?php } ?>
+</div>
+</div>
+
+
+
+
+
+
+////////////////////////
+call static block
+/////////////////
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer')->toHtml() ?>
+																	ID here
+
+//////////call phtml file
+{{block type="core/template" template="cms/sample.phtml"}}
+
+
+slideshow
+http://www.magentocommerce.com/magento-connect/free-youama-jquery-nivo-slider-1600.html
+
+
+
+
+
+To load products of a specific category:
+--------------------------------------
+<?php                        
+$cat_id = 8; // set desired category id
+$category = Mage::getModel('catalog/category')->load($cat_id);
+$products = $category->getProductCollection()->addCategoryFilter($category)->addAttributeToSelect('*');
+?>
+<?php foreach ( $products as $_product ): ?>
+    <a href="<?php echo $_product->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135, 135); ?>" width="135" height="135" title="<?php echo $_product->getName() ?>" alt="<?php echo $_product->getName() ?>" /></a>
+<?php endforeach; ?>
+
+
+
+
+
+
+
+
+
+Display Top Level Categories and ALL Subcategories
+-----------------------------------
+<?php $_helper = Mage::helper('catalog/category') ?>
+<?php $_categories = $_helper->getStoreCategories() ?>
+<?php $currentCategory = Mage::registry('current_category') ?>
+<?php if (count($_categories) > 0): ?>
+    <ul>
+        <?php foreach($_categories as $_category): ?>
+            <li>
+                <a href="<?php echo $_helper->getCategoryUrl($_category) ?>">
+                    <?php echo $_category->getName() ?>
+                </a>
+                <?php $_category = Mage::getModel('catalog/category')->load($_category->getId()) ?>
+                <?php $_subcategories = $_category->getChildrenCategories() ?>
+                <?php if (count($_subcategories) > 0): ?>
+                    <ul>
+                        <?php foreach($_subcategories as $_subcategory): ?>
+                            <li>
+                                <a href="<?php echo $_helper->getCategoryUrl($_subcategory) ?>">
+                                    <?php echo $_subcategory->getName() ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------
+show all product
+-------------------------------------------------------------
+<div class="block featured_prod">
+<h1>Online Shop</h1>
+
+<div class="block-title">
+  <strong><span>brandnew Product</span></strong>
+</div>
+<div class="block-content">
+
+<?php 
+$collection = Mage::getModel('catalog/product')
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+
+foreach ($collection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(150, 190); ?>" style="display: inline-block; width: 150px; height: 190px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <!--div class="short-description"><?php echo nl2br($prod->getShortDescription()) ?></div-->
+  <div class="price"><?php echo '$'.$catprice; ?><?php echo number_format($prod->getPrice(),2); ?></div>
+    <span id='addtobasket'>Add to Cart</span>
+	</a>
+<?php
+ }
+?>
+
+</div>
+</div>
+
+
+
+
+
+multiple carousel
+////////////////////////
+http://www.cyberminds.co.uk/blog/demos/jcarouselmultipletabs.html
+
+
+
+GET Currency Sign
+-----------------------------------------
+Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+
+
+
+
+
+
+
+sitemap
+----------------
+http://www.magentocommerce.com/magento-connect/xml-sitemap-by-activo-1621.html
+http://www.magentocommerce.com/magento-connect/creare-dynamic-sitemap-seo.html
+
+
+magento files
+------------
+http://doc-magento.com/nav.html?app/design/frontend/default/modern/template/catalog/product/list/upsell.phtml.source.html
+
+
+get cross-sell
+http://www.magentocommerce.com/boards/viewthread/51529/
+----------------------------------------------------
+<block type="catalog/product_list_crosssell" name="product.info.crosssell" as="crosss_products" template="catalog/product/list/similar.phtml"/> 
+
+
+
+PASTE TO THE CMS CALL VIA STATIC BLOCK
+<h4><?php echo $this->__('Based on your selection, you may be interested in the following items:') ?></h4> 
+<ul class="generic-product-list"> 
+	<?php foreach ($this->getItems() as $_item): ?> 
+	<li> 
+		<a href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(); ?>" width="150" height='190' alt="<?php echo $this->htmlEscape($_item->getName()) ?>" class="product-image" /></a> 
+		<div style='clear:both;'></div>
+		<div class="product-shop"> 
+			<h5><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></h5> 
+			<?php echo $this->getPriceHtml($_item, true) ?> 
+			<button class="form-button" onclick="setLocation(’<?php echo $this->getAddToCartUrl($_item) ?>’)” type="button"><span><?php echo $this->__('Add to Cart') ?></span></button><br/> 
+			<?php if ($this->helper('wishlist')->isAllow()) : ?> 
+			<small><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>” class="link-cart"><?php echo $this->__('Add to Wishlist') ?></a></small> 
+			<?php endif; ?> 
+			<?php //if($_compareUrl=$this->getAddToCompareUrl($_item)): ?><br/> 
+			<!--small><a href="<?php echo $_compareUrl ?>"><?php echo $this->__('Add to Compare') ?></a></small--> 
+			<?php //endif; ?> 
+		</div> 
+	</li> 
+	<?php endforeach; ?> 
+</ul> 
+
+
+
+
+kuhaon ang total nga balayran
+--------------------------------------
+echo $grand_total = number_format(Mage::getModel('checkout/cart')->getQuote()->getGrandTotal(),2);
+
+
+get the name of the user
+-----------------------
+echo $customerName = Mage::helper('customer')->getCustomerName();
+<?php 
+if(Mage::getSingleton('customer/session')->isLoggedIn())
+{
+		   $customer = Mage::getSingleton('customer/session')->getCustomer()->getData();  
+		if(Mage::getSingleton('customer/session')->isLoggedIn()){  
+		   echo "<div id='cus_name'><a href='http://flomsie.comersify.com/shop/index.php/customer/account/' title='your account'>".$this->__('Welcome, %s!', ucwords($customer['lastname']))."</a> 
+		  <a id='log_out_l' href='".Mage::getBaseUrl()."customer/account/logout/' title='log-out'>LOGOUT</a>
+		   </div>";  
+		}/*else{  
+		   echo $this->__('');  
+		}*/
+}
+//$customer = Mage::getSingleton('customer/session')->getCustomer();
+//$email = $customer->getEmail();// To get Email Id of a customer
+//$firstname = $customer->getFirstname();// To get Firstname of a customer
+//$lastnam e= $customer->getLastname();// To get Last name of a customer
+?>
+
+
+display product ID
+---------------------------------------------------------------
+$product_id = $this->getProduct()->getId();
+<?php echo $product_id = Mage::registry('current_product')->getId(); ?>
+
+
+
+get product img
+------------------------------------------------------
+$product_id = Mage::registry('current_product')->getId();  // product id first
+$_newProduct = Mage::getModel('catalog/product')->load($product_id); //load mage ambot
+<img id='f_p' src="<?php echo $_newProduct->getImageUrl();?>" />
+***********************************************************************
+echo $_newProduct->getShortDescription(); //product's short description
+echo $_newProduct->getDescription(); // product's long description
+echo $_newProduct->getName(); //product name
+echo $_newProduct->getPrice(); //product's regular Price
+echo $_newProduct->getSpecialPrice(); //product's special Price
+echo $_newProduct->getProductUrl(); //product url
+echo $_newProduct->getImageUrl(); //product's image url
+echo $_newProduct->getSmallImageUrl(); //product's small image url
+echo $_newProduct->getThumbnailUrl(); //product's thumbnail image url
+***********************************************************************
+
+Product page zoom 
+-------------------------------------
+http://www.magentocommerce.com/magento-connect/vs-product-image-zoom-featurezoom.html
+
+
+get attribute butang sa phtml file
+------------------------
+   $product_id = Mage::registry('current_product')->getId(); 
+   $_newProduct = Mage::getModel('catalog/product')->load($product_id);
+   
+   $feature1 = $_newProduct->getP_features();
+
+
+
+add to cart btn
+-----------------------------------
+<input id='addtobasket' type="button" title="<?php echo $this->__('Add to Cart') ?>" class="addtocart" onclick="setLocation('<?php echo (string)Mage::helper('checkout/cart')->getAddUrl($prod); ?>')"  value='Add to Cart'/>
+
+
+slider
+---------------------
+http://jsfiddle.net/DzFaP/
+
+
+
+
+
+
+
+if loggin
+---------------------
+if(Mage::getSingleton('customer/session')->isLoggedIn())
+{
+		   $customer = Mage::getSingleton('customer/session')->getCustomer()->getData();  
+		if(Mage::getSingleton('customer/session')->isLoggedIn()){  
+		   echo "<div id='cus_name'><a href='http://flomsie.comersify.com/shop/index.php/customer/account/' title='your account'>".$this->__('Welcome, %s!', ucwords($customer['firstname'])." ".ucwords($customer['lastname']))."</a> 
+		  <a id='log_out_l' href='".Mage::getBaseUrl()."customer/account/logout/' title='log-out'>LOGOUT</a>
+		   </div>";  
+		}/*else{  
+		   echo $this->__('');  
+		}*/
+}
+//$customer = Mage::getSingleton('customer/session')->getCustomer();
+//$email = $customer->getEmail();// To get Email Id of a customer
+//$firstname = $customer->getFirstname();// To get Firstname of a customer
+//$lastnam e= $customer->getLastname();// To get Last name of a customer
+
+
+
+website url
+------------------
+<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>
+http://www.magentocommerce.com/boards/viewthread/289595/
+
+
+
+
+
+
+reference tut
+------------------------
+http://inchoo.net/ecommerce/magento/custom-reference-structural-block/
+http://www.siteground.com/tutorials/magento/magento_configuration.htm
+
+
+
+
+email		
+--------------------
+$from_email = Mage::getStoreConfig('trans_email/ident_general/email'); //fetch sender email Admin
+$from_name = Mage::getStoreConfig('trans_email/ident_general/name'); //fetch sender name Admin
+
+quanltity
+-------------------------
+<?=Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty()?>
+
+
+
+
+get attribute from product
+------------------
+$product_id = $_product->getId();
+$_newProduct = Mage::getModel('catalog/product')->load($product_id);
+$icond = $_newProduct->getAttributeText('item_con');
+
+
+
+
+Best Seller product
+---------------------------
+http://www.magentocommerce.com/magento-connect/magento-bestseller-products-extension.html
+{{block type="bestseller/bestseller" name="bestseller" template="bestseller/bestseller.phtml"}} 
+
+
+
+
+dropdown cart
+-----------------------------------------
+<div id='cart_drop_show' style='display:none;'>
+<table>
+<tr>
+	<th>Product</th>
+	<th style='text-align:center;'>Price</th>
+</tr>
+
+	<?php 
+		$cart = Mage::getModel('checkout/cart')->getQuote();
+			foreach ($cart->getAllItems() as $item) {
+				  $productName = $item->getProduct()->getName();
+				  $productPrice = $item->getProduct()->getPrice();
+					?>
+		<tr>
+			<td><?php echo ucwords($productName); ?></td>
+			<td style='text-align:center;'>
+			<?php 	echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
+			<?php echo number_format($productPrice); ?>
+			</td>
+		</tr>
+	<?php } ?>
+	<tr>
+		<th>TOTAL</th>
+		<th style='text-align:center;'><?php 	echo $grand_total = number_format(Mage::getModel('checkout/cart')->getQuote()->getGrandTotal(),2); ?></th>
+	</tr>
+	<tr>
+	<th><a href='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>checkout/cart/'>Shopping Cart</a></th>
+	<th><a href='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>checkout/onepage/'>Proceed to Checkout</a></th>
+	</tr>
+</table>
+</div>
+
+
+
+
+local.xml
+---------------------------
+<default>
+    <reference name="head">
+        <action method="addItem">
+            <type>skin_js</type>
+            <name>js/my_js.js</name>
+            <params/>
+        </action>
+        <action method="addItem">
+            <type>skin_css</type>
+            <name>css/my_styles.css</name>
+        </action>
+        <action method="removeItem">
+            <type>skin_css</type>
+            <name>css/brandext/slider.css</name>
+        </action>
+        <action method="removeItem">
+            <type>js</type>
+            <name>some_ext/jquery-1.4.2.js</name>
+        </action>
+    </reference>
+</default>
+
+
+
+
+Discount social
+----------------------------------
+http://stuntcoders.com/facebook-sharing-discount/
+http://demo.mage-vision.com/checkout/cart/
+
+
+facebook onclick
+----------------------
+http://stackoverflow.com/questions/13062588/calling-a-function-after-fb-like-button-click
+
+<div class="fb-like" data-href="https://www.facebook.com/YOUR_PAGE_NAME" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+    FB.Event.subscribe('edge.create', function(response) {
+        alert('I just clicked like button');
+    });
+    // Code to detect clicking unlike
+    FB.Event.subscribe('edge.remove', function(href) {
+        alert('Unlike');
+    });
+};
+
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if(d.getElementById(id)){return;}
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=YOUR_APP_ID";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+automatic price rules shopping cart rules
+-------------------------------
+<?php 
+    $sku = Mage::getModel('catalog/product')->load($_product->getId())->getSku();
+    $product_id = $this->getProduct()->getId();
+    $product_id = Mage::registry('current_product')->getId(); 
+	$rand_name = "facebook".rand(0,999999);
+
+     $rule = Mage::getModel('salesrule/rule');
+    $customer_groups = array(0, 1, 2, 3);
+    $rule->setName($rand_name)
+      ->setDescription('discount facebook')
+      ->setFromDate('')
+      ->setCouponType(1)
+      ->setCouponCode($coupon_code)
+      ->setUsesPerCustomer(1)
+      ->setCustomerGroupIds($customer_groups) //an array of customer grou pids
+      ->setIsActive(1)
+      ->setConditionsSerialized(1)
+      ->setActionsSerialized(1)
+      ->setStopRulesProcessing(1)
+      ->setIsAdvanced(1)
+      ->setProductIds('')
+      ->setSortOrder(1)
+      ->setSimpleAction('cart_fixed')
+      ->setDiscountAmount($facebook_dis)
+      ->setDiscountQty(1)
+      ->setDiscountStep(1)
+      ->setSimpleFreeShipping('0')
+      ->setApplyToShipping('0')
+      ->setIsRss(1)
+      ->setWebsiteIds(array(1));
+
+        $item_found = Mage::getModel('salesrule/rule_condition_product_found')
+      ->setType('salesrule/rule_condition_product_found')
+      ->setValue(1) // 1 == FOUND
+      ->setAggregator('all'); // match ALL conditions
+    $rule->getConditions()->addCondition($item_found);
+    $conditions = Mage::getModel('salesrule/rule_condition_product')
+      ->setType('salesrule/rule_condition_product')
+      ->setAttribute('sku')
+      ->setOperator('==')
+      ->setValue($sku);
+    $item_found->addCondition($conditions);
+ 
+    $actions = Mage::getModel('salesrule/rule_condition_product')
+      ->setType('salesrule/rule_condition_product')
+      ->setAttribute('sku')
+      ->setOperator('==')
+      ->setValue($sku);
+    $rule->getActions()->addCondition($actions);
+    $rule->save();
+
+    ?>
+
+    --------------------------------
+    delete cart rules on success
+    -------------------------------
+    $model = Mage::getModel('salesrule/rule')
+       ->getCollection()
+      ->addFieldToFilter('name', array('eq'=>sprintf('twitter', Mage::getSingleton('customer/session')->getCustomerId())))
+       ->getFirstItem();
+	$model->delete();
+	
+	
+	
+set to 4 columns
+ara lang sa una
+------------------------------
+<action method="setColumnCount"><columns>4</columns></action>
+http://www.collaboration133.com/magento-change-category-product-grid-layout-from-3-columns-to-4-columns/2384/
+
+
+call subscribe
+-------------------
+http://optimiseblog.co.uk/magento-newsletter-subscribe-form-in-footer-or-header/
+<?php echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe.phtml')->toHtml(); ?>
+
+item in cart
+--------------------
+<?php
+      $count = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart
+      $total = $this->helper('checkout/cart')->getQuote()->getGrandTotal(); //get total price
+      if($count==0)
+      {
+        echo $this->__('<a href="/checkout/cart" class="cartgo">0</a>',$count);
+      }
+      if($count==1)
+      {
+        echo $this->__('<a href="/checkout/cart" class="cartgo">1</a>',$count);
+      }
+      if($count>1)
+      {
+        echo $this->__('<a href="/checkout/cart" class="cartgo">%s</a>',$count);
+      }
+      echo $this->__('', $this->helper('core')->formatPrice($total, false));
+    ?>
+	
+	
+	
+if loggin
+-------------------------
+<?php 
+$customerName = Mage::helper('customer')->getCustomerName();
+if(Mage::getSingleton('customer/session')->isLoggedIn())
+{
+/* Get the customer data */
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    /* Get the customer's full name */
+    $fullname = $customer->getName();
+    /* Get the customer's first name */
+    $firstname = $customer->getFirstname();
+    /* Get the customer's last name */
+    $lastname = $customer->getLastname();
+    /* Get the customer's email address */
+    $email = $customer->getEmail();
+ ?>
+
+ 	<ul id='top_menus_ul' style='margin-left: -20px;'>
+		<li id='bor' style='padding-left: 34px;'><a href='http://archmagento.com/pensonicclone/index.php/checkout/cart/'>Cart</a></li>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'><?php echo $firstname; ?></a></li>
+		<li><a href='<?php echo Mage::getBaseUrl()."customer/account/logout/'"; ?>'>Logout</a></li>
+	</ul>
+
+<?php }else{ ?>
+	<ul id='top_menus_ul'>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'>Staff login</a></li>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'>Login</a></li>
+		<li><a href='http://archmagento.com/pensonicclone/index.php/customer/account/create/'>Register</a></li>
+	</ul>
+<?php } ?>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

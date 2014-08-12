@@ -1,0 +1,166 @@
+COPY PASTE
+/*link to folder*/
+---------------------------------------------------------------
+<?php echo $this->getSkinUrl('css/style.css')?>
+
+/*cms page code*/
+---------------------------------------------------------------
+{{block type="catalog/products_list" category_id="6" template="catalog/product/list.phtml" }}
+
+
+/*Link CMS PAGE*/
+---------------------------------------------------------------
+{{block type="core/template" template="cms/sample.phtml"}}
+
+call static block
+---------------------------------------------------------------
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer')->toHtml() ?>
+
+call phtml file
+---------------------------------------------------------------
+{{block type="core/template" template="cms/sample.phtml"}}
+
+																	
+To load products of a specific category:
+----------------------------------------------------------------------------
+
+<?php                        
+$cat_id = 8; // set desired category id
+$category = Mage::getModel('catalog/category')->load($cat_id);
+$products = $category->getProductCollection()->addCategoryFilter($category)->addAttributeToSelect('*');
+?>
+<?php foreach ( $products as $_product ): ?>
+    <a href="<?php echo $_product->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135, 135); ?>" width="135" height="135" title="<?php echo $_product->getName() ?>" alt="<?php echo $_product->getName() ?>" /></a>
+<?php endforeach; ?>
+
+
+show featured product
+edit attributes
+---------------------------------------------------------------
+<div class="block featured_prod">
+<div class="block-title">
+  <strong><span>Featured Product</span></strong>
+</div>
+<div class="block-content">
+<?php
+// instantiate product model
+$product = Mage::getModel('catalog/product');
+
+// get option id on attribute 'featured' with the value 'yes'
+$source = $product->getResource()->getAttribute('featured')->getSource();
+$optionId = Mage::getSingleton('catalog/config')->getSourceOptionId($source, 'yes');
+
+
+// load a product collection filtered by featured=yes
+$productCollection = $product->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('featured', $optionId)
+    ->load();
+
+// process the collection. display the products/details that have 'yes' featured attribute
+foreach ($productCollection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(224, 224); ?>" style="display: inline-block; width: 224px; height: 188px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <div class="sprice"><?php echo '$'.$catprice; ?></div>
+  <!--div class="price"><?php echo $prod->getPrice(); ?></div-->
+    </a>
+<?php
+ }
+?>
+</div>
+</div>
+
+
+
+Display  Categories and ALL Subcategories
+----------------------------------------------------
+<?php $_helper = Mage::helper('catalog/category') ?>
+<?php $_categories = $_helper->getStoreCategories() ?>
+<?php $currentCategory = Mage::registry('current_category') ?>
+<?php if (count($_categories) > 0): ?>
+    <ul>
+        <?php foreach($_categories as $_category): ?>
+            <li>
+                <a href="<?php echo $_helper->getCategoryUrl($_category) ?>">
+                    <?php echo $_category->getName() ?>
+                </a>
+                <?php $_category = Mage::getModel('catalog/category')->load($_category->getId()) ?>
+                <?php $_subcategories = $_category->getChildrenCategories() ?>
+                <?php if (count($_subcategories) > 0): ?>
+                    <ul>
+                        <?php foreach($_subcategories as $_subcategory): ?>
+                            <li>
+                                <a href="<?php echo $_helper->getCategoryUrl($_subcategory) ?>">
+                                    <?php echo $_subcategory->getName() ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+
+
+
+
+show all product
+-------------------------------------------------------------
+<div class="block featured_prod">
+<h1>Online Shop</h1>
+
+<div class="block-title">
+  <strong><span>brandnew Product</span></strong>
+</div>
+<div class="block-content">
+
+<?php 
+$collection = Mage::getModel('catalog/product')
+                        ->getCollection()
+                        ->addAttributeToSelect('*');
+
+foreach ($collection as $prod) {
+    /* echo $prod->getSku().'<hr/>'; */
+
+ // get price from catalog price rules (discounted 15%)
+ $catprice = Mage::getModel('catalogrule/rule')->calcProductPriceRule($prod,$prod->getPrice());
+?>
+ <a href="<?php echo $prod->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+     <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($prod, 'small_image')->resize(150, 190); ?>" style="display: inline-block; width: 150px; height: 190px; overflow:hidden;" alt="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($prod, 'small_image')) ?>" />
+  <div class="pname"><?php echo $prod->getName(); ?></div>
+  <!--div class="short-description"><?php echo nl2br($prod->getShortDescription()) ?></div-->
+  <div class="price"><?php echo '$'.$catprice; ?><?php echo number_format($prod->getPrice(),2); ?></div>
+    <span id='addtobasket'>Add to Cart</span>
+	</a>
+<?php
+ }
+?>
+
+</div>
+</div>
+
+
+
+
+
+************************************************************************************************************************
+
+/*PLUG INS*/
+menu-
+http://www.magentocommerce.com/magento-connect/responsive-custom-menu.html
+
+
+/*Slider Youama*/
+http://www.magentocommerce.com/magento-connect/free-youama-jquery-nivo-slider-1600.html
+
+
+/*Easy Tab*/
+http://www.magentocommerce.com/magento-connect/magento-products-tabs-extension-easy-tabs.html

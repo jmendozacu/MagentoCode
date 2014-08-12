@@ -1,0 +1,10 @@
+http://stackoverflow.com/questions/5728097/copying-a-magento-site
+
+it should be a case of copying the files/database, updating a couple of config items, and bob's your unkle
+
+Yep, that's basically it.
+
+You'll have to change the domain name in the database table core_config_data, 
+adjust database connection parameters in app/etc/local.xml, 
+delete the contents of var/cache, and you're ready to roll: 
+Log into the backend and change what you want.

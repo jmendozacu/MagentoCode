@@ -1,0 +1,16 @@
+ <?php 
+	//$rest = substr("abcdef", -3, 1); // retourne "d"
+		$prod_id = $_product->getId();
+		$_product = Mage::getModel('catalog/product')->load($prod_id);
+		if($_product->getStatus()==1){
+		   $_categories = $_product->getCategoryIds();
+		   $_category = Mage::getModel('catalog/category')->load($_categories[0]);
+			$url1 = $this->getUrl($_category->getUrlPath());
+			$url2 = $_product->getUrlPath();
+		   //Do whatever you want to do with $url
+		   //...
+			 $url3 = substr($url1,0,-6)."/".$url2;
+
+		 } 
+
+	?>

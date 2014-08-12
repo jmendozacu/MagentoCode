@@ -1,0 +1,10 @@
+        <!-- Remove unwanted blocks entirely -->
+        <remove name="right.poll"/>
+        <remove name="right.permanent.callout"/>
+        <remove name="left.permanent.callout"/>
+        <remove name="paypal.partner.right.logo"/>
+        <remove name="tags_popular"/>
+        <remove name="catalog.compare.sidebar"/>          
+        <remove name="checkout.cart.shipping" />  
+        <remove name="cart_sidebar"/>
+        <remove name="footer_links"/>

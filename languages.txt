@@ -1,0 +1,15 @@
+Language
+//cms pages
+Mage::helper('core')->__('hello');
+
+//custom pages
+<?php echo Mage::helper("core")->__("Archive"); ?>
+
+
+
+ $storeName = Mage::app()->getStore()->getName();
+ if($storeName=='Portuguese'){  
+	$delete = 'Deletar'; 
+ }else{ 
+	$delete = 'Delete';  
+ }

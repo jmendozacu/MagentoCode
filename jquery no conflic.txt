@@ -1,0 +1,14 @@
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type='text/javascript'>
+var j = jQuery.noConflict();
+
+j('#img_about').hide();
+if (j("body").hasClass("cms-about")) {
+		j('.breadcrumbs').hide();
+		j('#below_menu').hide();
+		j('#text_below_img').hide();
+		j('#img_about').show();
+		
+}
+
+</script>

@@ -1,0 +1,8 @@
+<?php                        
+$cat_id = 8; // set desired category id
+$category = Mage::getModel('catalog/category')->load($cat_id);
+$products = $category->getProductCollection()->addCategoryFilter($category)->addAttributeToSelect('*');
+?>
+<?php foreach ( $products as $_product ): ?>
+    <a href="<?php echo $_product->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135, 135); ?>" width="135" height="135" title="<?php echo $_product->getName() ?>" alt="<?php echo $_product->getName() ?>" /></a>
+<?php endforeach; ?>

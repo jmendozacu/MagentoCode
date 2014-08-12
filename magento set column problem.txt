@@ -1,0 +1,3 @@
+edit catalog xml
+
+<action method="setColumnCount"><columns>4</columns></action>

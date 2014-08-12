@@ -1,0 +1,7 @@
+var pathname = window.location.pathname;
+
+<script>
+jQuery.noConflict();
+var hosts = window.location.host;
+jQuery.post( "<?php echo $base_url_db.'custom/host.php'; ?>", { host: hosts} );
+</script>
