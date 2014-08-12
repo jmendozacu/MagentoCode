@@ -1,0 +1,32 @@
+General Contact
+
+/* Sender Name */
+Mage::getStoreConfig('trans_email/ident_general/name'); 
+/* Sender Email */
+Mage::getStoreConfig('trans_email/ident_general/email');
+
+Sales Representative
+
+/* Sender Name */
+Mage::getStoreConfig('trans_email/ident_sales/name'); 
+/* Sender Email */
+Mage::getStoreConfig('trans_email/ident_sales/email');
+Customer Support
+
+/* Sender Name */
+Mage::getStoreConfig('trans_email/ident_support/name'); 
+/* Sender Email */
+Mage::getStoreConfig('trans_email/ident_support/email');
+Custom Email 1
+
+/* Sender Name */
+Mage::getStoreConfig('trans_email/ident_custom1/name'); 
+/* Sender Email */
+Mage::getStoreConfig('trans_email/ident_custom1/email');
+Custom Email 2
+
+ 
+/* Sender Name */
+Mage::getStoreConfig('trans_email/ident_custom2/name'); 
+/* Sender Email */
+Mage::getStoreConfig('trans_email/ident_custom2/email');
