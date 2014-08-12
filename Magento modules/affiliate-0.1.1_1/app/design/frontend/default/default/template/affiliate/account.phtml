@@ -1,0 +1,87 @@
+<?php
+	$affId = Mage::helper('affiliate')->isAffiliate();
+	$aff = Mage::helper('affiliate')->getAffiliate();
+	$active = $aff->getStatus();
+	$transactionCollection = $this->getTransactions($affId);
+	$total = $this->getTotalValue($transactionCollection);
+	$commissionCollection = $this->getCommissions($affId);
+	$totalCommited = $this->getTotalCommitedValue($commissionCollection);
+	$availableRequestAmount = Mage::getModel('affiliate/payment')->getAvailableRequestAmount($affId);
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if($active=='1') : ?>
+<div class="page-title">
+  <h1><?php echo $this->__('Affiliate Program') ?></h1>
+</div>
+<div class="col2-set">
+	<div class="col-1">
+		<div class="fieldset">
+			<h2 class="legend"><?php echo $this->__('General Statistics') ?></h2>
+			<ul class="form-list">
+				<li>
+					<span style="float:left;"><?php echo $this->__('Total Transactions');?></span>
+					<span style="float:right;"><?php echo Mage::helper('core')->currency(round($total, 2)) ?></span>
+				</li>
+				<li>
+					<span style="float:left;"><?php echo $this->__('Total Earnings');?></span>
+					<span style="float:right;"><?php echo Mage::helper('core')->currency(round($totalCommited, 2)) ?></span>
+				</li>
+				<li>
+					<span style="float:left;"><?php echo $this->__('Available Balance');?></span>
+					<span style="float:right;"><?php echo Mage::helper('core')->currency(round($availableRequestAmount, 2))?></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-2">
+		<div class="fieldset">
+			<h2 class="legend"><?php echo $this->__('Affiliate Text Link') ?></h2>
+			
+			<ul class="form-list">
+				<li>
+					<?php $affiliate_url = Mage::getBaseUrl() . '?affid=' . $this->getAffiliateCode();?>
+					<?php echo $affiliate_url;?>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="fieldset">
+	<h2 class="legend"><?php echo $this->__('Included Campaigns') ?></h2>
+		<?php $relations = $this->getIncludedCampaign(); ?>
+		<?php if (!$relations->count()):?>
+			<span><?php echo $this->__('You\'ve not joined any campaigns.') ?></span>
+		<?php else: ?>
+			<table class="data-table" id="my-tickets-table" >
+				<thead>
+					<tr>
+						<th><?php echo $this->__('Campaign ID') ?></th>
+						<th><?php echo $this->__('Title') ?></th>
+						<th><?php echo $this->__('Rate') ?></th>
+						<th><?php echo $this->__('Earnings') ?></th>
+						<th><?php echo $this->__('Action') ?></th>
+						<th><?php echo $this->__('Campaign Status') ?></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($relations as $relation): ?>
+					<?php $campaign = Mage::getModel('affiliate/campaign')->load($relation->getCampaignId());?>
+					<tr>
+						<td><?php echo $campaign->getId() ?>&nbsp;</td>
+						<td><?php echo $campaign->getCampaignTitle();?></td>
+						<td><?php echo $this->getRateTitle($campaign) ?>&nbsp;</td>
+						<td><?php echo $this->getEarningByCampaign($campaign->getId()); ?></td>
+						<td><a href="<?php echo $this->getExcludeUrl($campaign->getId());?>"><?php echo $this->__('Exclude campaign');?></a></td>
+						<td><?php echo $this->getStatus($campaign->getStatus()) ?>&nbsp;</td></td>
+					</tr>
+				<?php endforeach ?>
+				</tbody>
+			</table>
+		<?php endif;?>
+</div>
+<div class="campaign-button right">
+	<button class="button" onclick="setLocation('<?php echo $this->getUrl('affiliate/account/campaign', array('_secure' => true))?>');">
+		<span><span><?php echo $this->__('View Available Campaigns');?></span></span>
+	</button>
+</div>
+<?php endif; ?>

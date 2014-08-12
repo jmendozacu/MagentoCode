@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<affiliate module="affiliate">
+			<title>Affiliate</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<affiliate module="affiliate">
+					<title>Manage Affiliate</title>
+					<sort_order>0</sort_order>
+					<action>affiliate/adminhtml_affiliate</action>
+				</affiliate>
+				<campaign module="affiliate">
+					<title>Manage Campaigns</title>
+					<sort_order>10</sort_order>
+					<action>affiliate/adminhtml_campaign</action>
+				</campaign>
+				<banner module="affiliate">
+					<title>Manage Banners</title>
+					<sort_order>20</sort_order>
+					<action>affiliate/adminhtml_banner</action>
+				</banner>
+				<payment module="affiliate" translate="title">
+					<title>Payment</title>
+					<sort_order>30</sort_order>
+					<children>
+						<statistic>
+							<title>Payment Statistic</title>
+							<sort_order>1</sort_order>
+							<action>affiliate/adminhtml_payment/statistic</action>
+						</statistic>
+						<request>
+							<title>Payment Request</title>
+							<sort_order>2</sort_order>
+							<action>affiliate/adminhtml_affiliate/viewRequest</action>
+						</request>
+						<history>
+							<title>Payment History</title>
+							<sort_order>3</sort_order>
+							<action>affiliate/adminhtml_affiliate/viewPaymentHistory</action>
+						</history>
+					</children>
+				</payment>
+				<settings module="affiliate" translate="title">
+					<title>Settings</title>
+					<sort_order>1000</sort_order>
+					<action>adminhtml/system_config/edit/section/affiliate</action>
+				</settings>
+			</children>
+		</affiliate>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<affiliate module="affiliate" translate="title">
+										<title>Affiliate</title>
+										<sort_order>110</sort_order>
+									</affiliate>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

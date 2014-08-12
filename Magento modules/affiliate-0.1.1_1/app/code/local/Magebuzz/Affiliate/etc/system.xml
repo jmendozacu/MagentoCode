@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<magebuzz translate="label">
+			<label>MageBuzz Add-Ons</label>
+			<sort_order>400</sort_order>
+		</magebuzz>
+	</tabs>
+	<sections>
+		<affiliate translate="label" module="affiliate">
+			<class>separator-top</class>
+			<label>Affiliate</label>
+			<tab>magebuzz</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>400</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>0</show_in_store>
+			<groups>
+				<general translate="label">
+					<label>General Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>0</show_in_store>
+					<fields>	
+						<top_link_url translate="label">
+							<label>Show URL in top link</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>1</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</top_link_url>
+						<welcome_page translate="label">
+							<label>Affiliate Static Block</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>2</sort_order>
+							<source_model>affiliate/system_config_cmspage</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</welcome_page>
+						<approve_affiliate_user translate="label">
+							<label>Wait for admin to approve affiliate account</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>6</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</approve_affiliate_user>
+						<switch_status translate="label">
+							<label>Calculate Commission When Item Status Is</label>
+							<frontend_type>multiselect</frontend_type>
+							<sort_order>3</sort_order>
+							<source_model>affiliate/item_status</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</switch_status>
+						<minimum_amount translate="label comment">
+							<label>Minimum Amount Per Request</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Leave 0 if unlimited</comment>
+						</minimum_amount>
+						<maximum_amount translate="label comment">
+							<label>Maximum Amount Per Request</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Leave 0 if unlimited</comment>
+						</maximum_amount>
+					</fields>
+				</general>
+				<email_notification translate="label">
+					<label>Notification Email Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<email_to_admin>
+							<label>Active Email Type</label>
+							<frontend_type>multiselect</frontend_type>
+							<sort_order>1</sort_order>
+							<source_model>affiliate/email</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</email_to_admin>
+						<admin_email>
+							<label>Admin Email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</admin_email>
+						<sender_email_identity translate="label">
+							<label>Email Sender</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_identity</source_model>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</sender_email_identity>
+						<new_user_sign_up_email_template translate="label">
+							<label>New User Sign Up Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</new_user_sign_up_email_template>
+						<user_account_approved_email_template translate="label">
+							<label>User Account Approved Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</user_account_approved_email_template>
+						<user_account_locked_email_template translate="label">
+							<label>User Account Locked Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</user_account_locked_email_template>
+						<user_request_money_email_template translate="label">
+							<label>User Request Money Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</user_request_money_email_template>
+						<admin_accept_payment_email_template translate="label">
+							<label>Admin Accept Payment Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</admin_accept_payment_email_template>
+						<admin_reject_payment_email_template translate="label">
+							<label>Admin Reject Payment Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>9</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</admin_reject_payment_email_template>
+						<admin_create_campaign_email_template translate="label">
+							<label>Admin Create Campaign Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</admin_create_campaign_email_template>
+					</fields>
+				</email_notification>
+			</groups>
+		</affiliate>
+	</sections>
+</config>

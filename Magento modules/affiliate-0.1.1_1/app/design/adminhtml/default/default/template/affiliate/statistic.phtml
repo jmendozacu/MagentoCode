@@ -1,0 +1,291 @@
+<?php
+	$commissionInput = Mage::helper('affiliate')->convertCommissionToJsInputType();
+	$transactionInput = Mage::helper('affiliate')->convertTransactionToJsInputType();
+	$paymentResponseInput = Mage::helper('affiliate')->convertPaymentResponseToJsInputType();
+	$date = new Zend_Date();
+?>
+<div>
+	<div>
+		<select onchange="changeDisplay(this.value)">
+			<option value="alltime"><?php echo $this->__('All Time') ?></option>
+			<option value="custom"><?php echo $this->__('Custom Period') ?></option>
+		</select>
+		<div hidden id="from">
+			<label><?php echo $this->__('From: ') ?><input type="text" id="from-date" name="from-date"><img title="Select From Date" id="cal_date_from_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'adminhtml/default/default/images/grid-cal.gif'; ?>"  class="v-middle"/></label>
+		</div>
+		<div hidden id="to">
+			<label><?php echo $this->__('To: ') ?><input type="text" id="to-date" name="to-date"><img title="Select To Date" id="cal_date_to_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'adminhtml/default/default/images/grid-cal.gif'; ?>"  class="v-middle"/></label>
+		</div>
+		<button hidden id="submit" name="submit" value="Watch" onclick="refreshPlot()"><?php echo $this->__('Generate Graph') ?></submit>
+	</div>
+	<div id="chartdiv_commission_transaction"></div>
+	<div id="request_payment_statistic"></div>
+</div> 
+<script>
+
+Calendar.setup({
+    inputField : 'from-date',
+    button : 'cal_date_from_trig',
+    align : 'Bl',
+    singleClick : true
+});
+
+Calendar.setup({
+    inputField : 'to-date',
+    button : 'cal_date_to_trig',
+    align : 'Bl',
+    singleClick : true
+});
+	var plot1, plot2;
+	
+	function refreshPlot() {
+		plot1.destroy();
+		plot2.destroy();
+		plot1 = jQuery.jqplot('chartdiv_commission_transaction',  [transactionInput, commissionInput], {
+			title:'Transaction and Commission Statistic',
+			cursor:{
+				zoom:true,
+				looseZoom: true
+			}, 
+			axes: {
+				xaxis: {
+					renderer: jQuery.jqplot.DateAxisRenderer,
+					max: $('to-date').value,
+					min: $('from-date').value,
+				},
+				yaxis: {
+					tickOptions: {formatString: '$%d'},
+					// min : 0
+				}
+			},
+			legend: {
+				show: true,
+				placement: 'outsideGrid'
+			},
+			grid: {
+				drawGridLines: false,
+			},
+			series:[
+				{label:'Transaction'},
+				{label:'Commission'}
+			],
+		});
+		
+		plot2 = plot2 = jQuery.jqplot('request_payment_statistic',  [responseInput], {
+			title:'Payment History Statistic',
+			cursor:{
+				zoom:true,
+				looseZoom: true
+			}, 
+			axes: {
+				xaxis: {
+					renderer: jQuery.jqplot.DateAxisRenderer,
+					max: $('to-date').value,
+					min: $('from-date').value,
+				},
+				yaxis: {
+					tickOptions: {formatString: '$%d'},
+					// min : 0
+				}
+			},
+			legend: {
+				show: true,
+				placement: 'outsideGrid'
+			},
+			grid: {
+				drawGridLines: false,
+			},
+			series:[
+				{label:'Payment History'}
+			],
+		});
+	}
+
+	function changeDisplay(value) {
+		if(value=='custom') {
+			$('from').hidden = false;
+			$('to').hidden = false;
+			$('submit').hidden = false;
+		} else {
+			$('from').hidden = true;
+			$('to').hidden = true;
+			$('submit').hidden = true;
+			plot1.destroy();
+			plot2.destroy();
+			plot1 = jQuery.jqplot('chartdiv_commission_transaction',  [transactionInput, commissionInput], {
+				title:'Transaction and Commission Statistic',
+				cursor:{
+					zoom:true,
+					looseZoom: true
+				}, 
+				axes: {
+					xaxis: {
+						renderer: jQuery.jqplot.DateAxisRenderer,
+						max: '<?php echo $date->addDay(1)->toString('yyyy-MM-dd') ?>'
+					},
+					yaxis: {
+						tickOptions: {formatString: '$%d'},
+						// min : 0
+					}
+				},
+				legend: {
+					show: true,
+					placement: 'outsideGrid'
+				},
+				grid: {
+					drawGridLines: false,
+				},
+				series:[
+					{label:'Transaction'},
+					{label:'Commission'}
+				],
+			});
+			
+			plot2 = plot2 = jQuery.jqplot('request_payment_statistic',  [responseInput], {
+				title:'Payment History Statistic',
+				cursor:{
+					zoom:true,
+					looseZoom: true
+				}, 
+				axes: {
+					xaxis: {
+						renderer: jQuery.jqplot.DateAxisRenderer,
+						max: '<?php echo $date->addDay(1)->toString('yyyy-MM-dd') ?>'
+					},
+					yaxis: {
+						tickOptions: {formatString: '$%d'},
+						// min : 0
+					}
+				},
+				legend: {
+					show: true,
+					placement: 'outsideGrid'
+				},
+				grid: {
+					drawGridLines: false,
+				},
+				series:[
+					{label:'Payment History'}
+				],
+			});
+		}
+	}
+
+	// Commission and Transaction Plot
+	var commissionInput = [<?php echo $commissionInput ?>];
+	var transactionInput = [<?php echo $transactionInput ?>];
+	jQuery(document).ready(function() {
+		jQuery.jqplot.config.enablePlugins = true;
+		plot1 = jQuery.jqplot('chartdiv_commission_transaction',  [transactionInput, commissionInput], {
+			title:'Transaction and Commission Statistic',
+			cursor:{
+				zoom:true,
+				looseZoom: true
+			}, 
+			axes: {
+				xaxis: {
+					renderer: jQuery.jqplot.DateAxisRenderer,
+					// tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
+					// max: '2012-08-01',
+					max: '<?php echo $date->addDay(1)->toString('yyyy-MM-dd') ?>'
+					
+				},
+
+				yaxis: {
+					tickOptions: {formatString: '$%d'},
+					// min : 0
+				}
+			},
+			legend: {
+				show: true,
+				placement: 'outsideGrid'
+			},
+			grid: {
+				drawGridLines: false,
+			},
+			series:[
+				{
+					label:'Transaction',
+					// renderer: jQuery.jqplot.BarRenderer,
+					// rendererOptions: {
+                        // barPadding: 1,
+                        // barMargin: 15,
+                        // barDirection: 'vertical',
+						// barWidth: 10,
+                    // }, 
+                    // pointLabels: { show: true }
+				},
+				{
+					label:'Commission', 
+					// renderer: jQuery.jqplot.BarRenderer,
+					// rendererOptions: {
+                        // barPadding: 1,
+                        // barMargin: 15,
+                        // barDirection: 'vertical',
+						// barWidth: 10,
+                    // }, 
+                    // pointLabels: { show: true }
+				}
+			],
+		});
+	});
+	
+	
+	// Request and Response Plot
+	var responseInput = [<?php echo $paymentResponseInput ?>];
+	jQuery(document).ready(function() {
+		jQuery.jqplot.config.enablePlugins = true;
+		plot2 = jQuery.jqplot('request_payment_statistic',  [responseInput], {
+			title:'Payment History Statistic',
+			cursor:{
+				zoom:true,
+				looseZoom: true
+			}, 
+			axes: {
+				xaxis: {
+					renderer: jQuery.jqplot.DateAxisRenderer,
+					// tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
+					// max: '2012-08-01',
+					max: '<?php echo $date->addDay(1)->toString('yyyy-MM-dd') ?>'
+					
+				},
+
+				yaxis: {
+					tickOptions: {formatString: '$%d'},
+					// min : 0
+				}
+			},
+			legend: {
+				show: true,
+				placement: 'outsideGrid'
+			},
+			grid: {
+				drawGridLines: false,
+			},
+			series:[
+				{
+					label:'Payment History',
+					// renderer: jQuery.jqplot.BarRenderer,
+					// rendererOptions: {
+                        // barPadding: 1,
+                        // barMargin: 15,
+                        // barDirection: 'vertical',
+						// barWidth: 10,
+                    // }, 
+                    // pointLabels: { show: true }
+				},
+				// {
+					// label:'Commission', 
+					// renderer: jQuery.jqplot.BarRenderer,
+					// rendererOptions: {
+                        // barPadding: 1,
+                        // barMargin: 15,
+                        // barDirection: 'vertical',
+						// barWidth: 10,
+                    // }, 
+                    // pointLabels: { show: true }
+				// }
+			],
+		});
+	});
+</script>

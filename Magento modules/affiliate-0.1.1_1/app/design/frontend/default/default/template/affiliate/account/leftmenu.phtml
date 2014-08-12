@@ -1,0 +1,30 @@
+<div class="block block-account">
+	<div class="block-title">
+		<strong><span><?php echo $this->__('Affiliate Program'); ?></span></strong>
+	</div>
+	<div class="block-content">
+		<ul>
+			<li class="">
+				<a href="<?php echo $this->getUrl('affiliate/account/index', array('_secure' => true));?>"><?php echo $this->__("General Statistics");?></a>
+			</li>
+			<li>
+				<a href="<?php echo $this->getUrl('affiliate/account/campaign', array('_secure' => true));?>"><?php echo $this->__("Campaigns");?></a>
+			</li>
+			<li>
+				<a href="<?php echo $this->getUrl('affiliate/account/materials', array('_secure' => true));?>"><?php echo $this->__("Marketing Materials");?></a>
+			</li>
+			<li>
+				<a href="<?php echo $this->getUrl('affiliate/account/commission', array('_secure' => true));?>"><?php echo $this->__("Commissions");?></a>
+			</li>
+			<li>
+				<a href="<?php echo $this->getUrl('affiliate/account/transaction', array('_secure' => true));?>"><?php echo $this->__("Transactions");?></a>
+			</li>
+			<li>
+				<a href="<?php echo $this->getUrl('affiliate/account/statistic', array('_secure' => true));?>"><?php echo $this->__("Statistics");?></a>
+			</li>
+			<li class="last">
+				<a href="<?php echo $this->getUrl('affiliate/account/viewPayment', array('_secure' => true));?>"><?php echo $this->__("Payment");?></a>
+			</li>			
+		</ul>
+	</div>
+</div>

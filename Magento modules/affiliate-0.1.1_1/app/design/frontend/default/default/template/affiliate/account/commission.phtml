@@ -1,0 +1,54 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $commissions = $this->getCommissions(); ?>
+<div class="page-title">
+  <h1><?php echo $this->__('My Commissions') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($commissions->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+  <col width="1"/>
+  <col width="1"/>
+  <col/>
+	<col/>
+  <col/>
+  <col/>
+	<col/>
+  <col/>
+  <col/>
+  <thead>
+    <tr>
+			<th><?php echo $this->__('#') ?></th>
+			<th><?php echo $this->__('Campaign Name') ?></th>
+			<th><?php echo $this->__('Order #') ?></th>
+			<th><?php echo $this->__('Ordered Product') ?></th>
+			<th><?php echo $this->__('Qty') ?></th>
+			<th><?php echo $this->__('Ordered Date') ?></th>
+			<th><?php echo $this->__('Commission') ?></th>
+			<th><?php echo $this->__('Item Status') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+		<?php foreach ($commissions as $commission): ?>
+		<?php 
+			$transaction = Mage::getModel('affiliate/transaction')->load($commission->getTransactionId())->getData();
+			$_order = Mage::getModel('sales/order')->load($transaction['order_id']);
+			$campaignModel = Mage::getModel('affiliate/campaign');		
+		?>
+    <tr>
+			<td><?php echo $commission['commission_id'] ?></td>
+			<td><?php echo $campaignModel->load($transaction['campaign_id'])->getCampaignTitle() ?></td>
+			<td><?php echo $_order->getIncrementId(); ?></td>
+			<td><?php echo Mage::getModel('sales/order_item')->load($transaction['item_id'])->getName() ?></td>
+			<td><?php echo round($transaction['total_amount']) ?></td>
+			<td><?php echo Mage::helper('core')->formatDate($transaction['created'], 'medium');?></td>
+			<td><?php echo Mage::helper('core')->currency(round($transaction['commission'], 2)) ?></td>
+			<td><?php echo Mage::getModel('sales/order_item')->load($transaction['item_id'])->getStatus()?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+	<p class="note-msg"><?php echo $this->__('There are no commissions related to your affiliate account.'); ?></p>
+<?php endif ?>

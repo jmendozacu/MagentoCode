@@ -1,0 +1,178 @@
+<?php
+/*
+* Copyright (c) 2013 www.magebuzz.com 
+*/
+?>
+<?php
+	$commissionCollection = $this->getCommissions(Mage::helper('affiliate')->isAffiliate());
+	$total = $this->getTotalCommitedValue($commissionCollection);
+	$affId = Mage::helper('affiliate')->isAffiliate();
+	$availableRequestAmount = Mage::getModel('affiliate/payment')->getAvailableRequestAmount($affId);
+	$requested = Mage::getModel('affiliate/payment')->getTotalAmountRequested($affId);
+	$requesting = Mage::getModel('affiliate/payment')->getTotalAmountRequesting($affId);
+	$requestedCollection = Mage::getModel('affiliate/payment')->getRequestedCollection($affId);
+	$requestingCollection = Mage::getModel('affiliate/payment')->getRequestingCollection($affId);
+	$campaignModel = Mage::getModel('affiliate/campaign');
+	$min = Mage::getStoreConfig('affiliate/general/minimum_amount');
+	$max = Mage::getStoreConfig('affiliate/general/maximum_amount');
+	$_requests = $this->getRequests();
+	$_responses = $this->getResponses();
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title">
+  <h1><?php echo $this->__('Affiliate Payment') ?></h1>
+</div>
+<div class="fieldset">
+	<h2 class="legend"><?php echo $this->__('Payment Statistic') ?></h2>
+	<ul class="form-list">
+		<?php if ($max>0) :?>
+		<li><?php echo $this->__('Maximum withdrawal amount:') ?>&nbsp;<b><?php echo Mage::helper('core')->currency($max); ?></b></li>
+		<?php endif; ?>
+		<?php if ($min>0) :?>
+		<li><?php echo $this->__('Mimimum withdrawal amount:') ?>&nbsp;<b><?php echo Mage::helper('core')->currency($min); ?></b></li>
+		<?php endif; ?>
+		<li><?php echo $this->__('Your total commission:')?>&nbsp;<b><?php echo Mage::helper('core')->currency($total) ?></b></li>
+		<li><?php echo $this->__('Your current available amount for withdrawal is:')?>&nbsp;<b><?php echo Mage::helper('core')->currency($availableRequestAmount) ?></b></li>
+	</ul>
+</div>
+<form onsubmit="return check()" action="<?php echo $this->getUrl('affiliate/account/request')?>" method="post" id="request-form">
+	<div class="fieldset">
+		<h2 class="legend"><?php echo $this->__('Request Money') ?></h2>
+		<ul class="form-list">
+			<li class="fields">
+				<label for="amount" class="required"><?php echo $this->__('Request Amount (USD)') ?><em>*</em></label>
+				<div class="input-box">
+					<input type="text" id="amount" name="amount" title="Request Amount" class="input-text required-entry"/>
+				</div>
+				<div id="notification" style="color:red"></div>
+			</li>
+			<li class="fields">
+				<label for="message" class="required"><?php echo $this->__('Request Message Or Payment Instruction') ?></label>
+				<div class="input-box">	
+					<textarea id="message" name="message" rows="2" cols="20"></textarea>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="buttons-set">
+		<p class="required">* <?php echo $this->__('Required Fields') ?></p>
+		<button type="submit" title="Save" class="button"><span><span><?php echo $this->__('Request') ?></span></span></button>
+	</div>
+</form>
+<div class="fieldset">
+	<h2 class="legend"><?php echo $this->__('Payment Request') ?></h2>
+	<?php echo $this->getPagerHtml(); ?>
+	<?php if($_requests->getSize()): ?>
+	<table class="data-table" id="my-orders-table">
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<thead>
+			<tr>
+				<th><?php echo $this->__('#') ?></th>
+				<th><?php echo $this->__('Request Amount') ?></th>
+				<th><?php echo $this->__('Time') ?></th>
+				<th><?php echo $this->__('Request Message') ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $_odd = ''; ?>
+			<?php foreach ($_requests as $_request): ?>
+			<?php $request = $_request->getData() ?>
+			<tr>
+				<td><?php echo $request['request_id'] ?></td>
+				<td><?php echo Mage::helper('core')->currency(round($request['request_amount'], 2))?></td>
+				<td><?php echo Mage::helper('core')->formatDate($request['request_time'], 'medium') ?></td>
+				<td><?php echo $request['request_note']?></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<script type="text/javascript">decorateTable('my-orders-table');</script>
+	<?php echo $this->getPagerHtml(); ?>
+	<?php else: ?>
+		<p><?php echo $this->__('You have no pending payment request.'); ?></p>
+	<?php endif ?>
+</div>
+
+<div class="fieldset">
+	<h2 class="legend"><?php echo $this->__('Payment History') ?></h2>
+	<?php echo $this->getPager2Html(); ?>
+	<?php if($_responses->getSize()): ?>
+	<table class="data-table" id="my-orders-table-2">
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<thead>
+			<tr>
+				<th><?php echo $this->__('#') ?></th>
+				<th><?php echo $this->__('Request Amount') ?></th>
+				<th><?php echo $this->__('Time') ?></th>
+				<th><?php echo $this->__('Request Message') ?></th>
+				<th><?php echo $this->__('Status') ?></th>
+				<th><?php echo $this->__('Response Message') ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $_odd = ''; ?>
+			<?php foreach ($_responses as $_response): ?>
+			<?php $response = $_response->getData() ?>
+			<tr>
+				<td><?php echo $response['request_id'] ?></td>
+				<td><?php echo Mage::helper('core')->currency(round($response['request_amount'], 2))?></td>
+				<td><?php echo Mage::helper('core')->formatDate($response['request_time'], 'medium');?></td>
+				<td><?php echo $response['request_note']?></td>
+				<td><?php echo Mage::helper('affiliate')->requestStatusToString($response['status']) ?></td>
+				<td><?php echo $response['response_note']?></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<script type="text/javascript">decorateTable('my-orders-table-2');</script>
+	<?php echo $this->getPager2Html(); ?>
+	<?php else: ?>
+		<p><?php echo $this->__('You have not made any payment request.'); ?></p>
+	<?php endif ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('request-form', true);
+	var amountElement = $('amount');
+	function check() {	
+		if(isNaN(amountElement.value)) {
+			$('notification').innerHTML = '"'+amountElement.value + '" is NOT a number. Please enter a valid value.';
+			// stop submit
+			return false;
+		} else {
+			if(<?php echo $max ?> > 0) {
+				if(<?php echo $availableRequestAmount ?> > <?php echo $max ?>) {
+					if(amountElement.value > <?php echo $max ?>) {
+						$('notification').innerHTML = 'Maximum value that you can request at a time is $' + <?php echo $max ?>;
+						return false;
+					}
+				} else {
+					if(amountElement.value > <?php echo $availableRequestAmount ?>) {
+						$('notification').innerHTML = 'Maximum value that you can request at a time is $' + <?php echo $availableRequestAmount ?>;
+						return false;
+					}
+				}
+			} else {
+				if(amountElement.value > <?php echo $availableRequestAmount ?>) {
+					$('notification').innerHTML = 'Maximum value that you can request at a time is $' + <?php echo $availableRequestAmount ?>;
+					return false;
+				}
+			}
+			if(<?php echo $min ?> > 0) {
+				if(amountElement.value < <?php echo $min ?>) {
+					$('notification').innerHTML = 'Minimum value that you can request is $' + <?php echo $min ?>;
+					return false;
+				}
+			}
+		}
+	}
+    //]]>
+</script>

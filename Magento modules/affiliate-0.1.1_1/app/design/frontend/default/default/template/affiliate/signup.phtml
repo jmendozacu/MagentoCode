@@ -1,0 +1,158 @@
+<?php
+	$firstname = $lastname = $email = '';
+	if ($this->isCustomerLoggedIn()) {
+		$customer = Mage::getModel('customer/customer')->load($this->getCustomerId());
+		$firstname = $customer->getFirstname();
+		$lastname = $customer->getLastname();
+		$email = $customer->getEmail();
+	}
+?>
+<div class="affiliate-register">
+	<div class="page-title">
+		<h1><?php echo $this->__('Sign up for Affiliate Account') ?></h1>
+	</div>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	<form name="affiliate-registration-form" id="affiliate-registration-form" method="post" action="<?php echo $this->getPostActionUrl()?>">
+		<div class="fieldset">
+			<h2 class="legend"><?php echo $this->__('Personal Information') ?></h2>
+			<?php if ($this->isCustomerLoggedIn()):?>
+				<input type="hidden" name="firstname" value="<?php echo $firstname ?>" />
+				<input type="hidden" name="lastname" value="<?php echo $lastname ?>" />
+				<input type="hidden" name="email" value="<?php echo $email ?>" />
+			<?php endif;?>
+			<ul class="form-list">
+				<li class="fields">
+					<div class="customer-name">
+						<div class="field name-firstname">
+			        <label class="required" for="firstname"><em>*</em><?php echo $this->__('First Name')?></label>
+			        <div class="input-box">
+			          <input type="text" <?php if ($this->isCustomerLoggedIn()):?> disabled="disabled" <?php endif;?> class="input-text required-entry" title="<?php echo $this->__('First Name')?>" value="<?php echo $firstname; ?>" name="firstname" id="firstname">
+			        </div>
+						</div>
+				    <div class="field name-lastname">
+							<label class="required" for="lastname"><em>*</em><?php echo $this->__('Last Name')?></label>
+							<div class="input-box">
+								<input type="text" class="input-text required-entry" <?php if ($this->isCustomerLoggedIn()):?> disabled="disabled" <?php endif;?> title="<?php echo $this->__('Last Name')?>" value="<?php echo $lastname; ?>" name="lastname" id="lastname">
+							</div>
+				    </div>
+					</div>
+				</li>
+				<li>
+					<label for="email_address" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+					<div class="input-box">
+						<input type="text" name="email" id="email_address" <?php if ($this->isCustomerLoggedIn()):?> disabled="disabled" <?php endif;?> value="<?php echo $email; ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<?php if($this->showAddressFields()): ?>
+		<div class="fieldset">
+			<input type="hidden" name="create_address" value="1" />
+			<h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
+			<ul class="form-list">
+				<li class="fields">
+					<div class="field">
+						<label for="company"><?php echo $this->__('Company') ?></label>
+						<div class="input-box">
+							<input type="text" name="company" id="company" value="" title="<?php echo $this->__('Company') ?>" class="input-text" />
+						</div>
+					</div>
+					<div class="field">
+						<label for="telephone" class="required"><em>*</em><?php echo $this->__('Telephone') ?></label>
+						<div class="input-box">
+							<input type="text" name="telephone" id="telephone" value="" title="<?php echo $this->__('Telephone') ?>" class="input-text required-entry" />
+						</div>
+					</div>
+				</li>
+				<li class="wide">
+					<label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
+					<div class="input-box">
+						<input type="text" name="street[]" value="" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text required-entry" />
+					</div>
+				</li>
+			<?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
+				<li class="wide">
+					<div class="input-box">
+						<input type="text" name="street[]" value="" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i?>" class="input-text" />
+					</div>
+				</li>
+			<?php endfor ?>
+				<li class="fields">
+					<div class="field">
+						<label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
+						<div class="input-box">
+							<input type="text" name="city" value="" title="<?php echo $this->__('City') ?>" class="input-text required-entry" id="city" />
+						</div>
+					</div>
+					<div class="field">
+						<label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+						<div class="input-box">
+							<select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+								<option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+							</select>
+							<script type="text/javascript">
+							//<![CDATA[
+								$('region_id').setAttribute('defaultValue', "");
+							//]]>
+							</script>
+							<input type="text" id="region" name="region" value="" title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+						</div>
+					</div>
+				</li>
+				<li class="fields">
+					<div class="field">
+						<label for="zip" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+						<div class="input-box">
+							<input type="text" name="postcode" value="" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international required-entry" />
+						</div>
+					</div>
+					<div class="field">
+						<label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+						<div class="input-box">
+							<?php echo $this->getCountryHtmlSelect() ?>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+    <?php endif; ?>
+		
+		<?php if (!$this->isCustomerLoggedIn()):?>
+		<div class="fieldset">
+			<h2 class="legend"><?php echo $this->__('Login Information') ?></h2>
+			<ul class="form-list">
+				<li class="fields">
+					<div class="field">
+						<label for="password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+						<div class="input-box">
+							<input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+						</div>
+					</div>
+					<div class="field">
+						<label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+						<div class="input-box">
+							<input type="password" name="confirmation" title="<?php echo $this->__('Confirm Password') ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<?php endif;?>
+		
+		<div class="buttons-set">
+			<p class="required"><?php echo $this->__('* Required Fields') ?></p>
+			<p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+			<button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+		</div>
+				
+	</form>
+	<script type="text/javascript">
+	//<![CDATA[
+		var affiliateForm = new VarienForm('affiliate-registration-form', true);
+		<?php if($this->showAddressFields()): ?>
+		var affiliateRegionUpdater = new RegionUpdater('country_id', 'region', 'region_id', <?php echo Mage::helper('directory')->getRegionJson() ?>, undefined, 'zip');
+		<?php endif; ?>
+	//]]>
+	</script>
+</div>

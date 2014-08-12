@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+		<reference name="top.links">
+			<action method="addLink" translate="label title" module="affiliate" ifconfig="affiliate/general/top_link_url">
+				<label>Affiliate</label>
+				<url>affiliate/account/index</url>
+				<title>Affiliate</title>
+				<prepare>true</prepare>
+				<urlParams/>
+				<position>0</position>
+			</action>
+		</reference>
+	</default>
+	<affiliate_index_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/affiliate" name="affiliate" template="affiliate/affiliate.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_index_index>
+	<affiliate_index_signup>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/affiliate" name="affiliate" template="affiliate/signup.phtml" />
+		</reference>		
+	</affiliate_index_signup>
+	<affiliate_account_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/account" name="affiliate.account" template="affiliate/account.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_index>
+	<affiliate_account_campaign>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/campaign" name="affiliate.campaign" template="affiliate/campaigns.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_campaign>
+	<affiliate_account_materials>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><styleSheet>magebuzz/css/affiliate.css</styleSheet></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/account" name="affiliate.marketing.materials" template="affiliate/account/materials.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_materials>
+	<affiliate_account_statistic>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+			<action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+			<action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+			<action method="addJs"><script>magebuzz/jQueryPlot/dist/jquery.min.js</script></action>
+			<action method="addJs"><script>magebuzz/jQueryPlot/dist/jquery.jqplot.min.js</script></action>
+			<action method="addJs"><script>magebuzz/jQueryPlot/dist/plugins/jqplot.cursor.min.js</script></action>
+			<action method="addJs"><script>magebuzz/jQueryPlot/dist/plugins/jqplot.pointLabels.min.js</script></action>
+			<action method="addJs"><script>magebuzz/jQueryPlot/dist/plugins/jqplot.dateAxisRenderer.min.js</script></action>
+			<action method="addCss"><stylesheet>magebuzz/css/jquery.jqplot.min.css</stylesheet></action>
+			<action method="addCss"><styleSheet>magebuzz/css/affiliate.css</styleSheet></action>
+		</reference>
+		<reference name="content">
+			<block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+			<block type="core/template" name="affiliate.marketing.statistic" template="affiliate/account/statistic.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_statistic>
+	<affiliate_account_transaction>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><styleSheet>magebuzz/css/affiliate.css</styleSheet></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/account_transaction" name="affiliate.marketing.transaction"/>
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_transaction>
+	<affiliate_account_commission>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><styleSheet>magebuzz/css/affiliate.css</styleSheet></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/account_commission" name="affiliate.marketing.commission"/>
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_commission>
+	<affiliate_account_viewpayment>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><styleSheet>magebuzz/css/affiliate.css</styleSheet></action>
+		</reference>
+		<reference name="content">
+			<block type="affiliate/account_payment" name="affiliate.marketing.view.payment" template="affiliate/account/payment.phtml" />
+		</reference>
+		<reference name="left">
+			<block type="affiliate/account_leftmenu" name="affiliate.account.leftmenu" template="affiliate/account/navigation.phtml" before="-"/>
+		</reference>
+	</affiliate_account_viewpayment>
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="affiliate">
+				<name>affiliate</name>
+				<path>affiliate/account/index</path>
+				<label>Affiliate</label>
+			</action>
+		</reference>
+	</customer_account>
+</layout> 
