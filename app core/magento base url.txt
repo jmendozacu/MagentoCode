@@ -1,0 +1,7 @@
+$url = Mage::getBaseUrl();
+
+
+<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>
+
+
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();

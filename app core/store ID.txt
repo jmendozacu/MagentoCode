@@ -1,0 +1,33 @@
+    $storeId = Mage::app()->getStore()->getId();
+	
+	
+	
+
+Get store data
+
+Mage::app()->getStore();
+
+Store Id
+
+Mage::app()->getStore()->getStoreId();
+
+Store code
+
+Mage::app()->getStore()->getCode();
+
+Website Id
+
+Mage::app()->getStore()->getWebsiteId();
+
+Store Name
+
+Mage::app()->getStore()->getName();
+
+Is Active
+
+Mage::app()->getStore()->getIsActive();
+
+Store Home Url
+
+Mage::app()->getStore()->getHomeUrl();
+

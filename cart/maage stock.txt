@@ -1,0 +1,8 @@
+//set Inventory
+$product->setStockData(
+array(
+‘use_config_manage_stock’ => 0, // Manage Stock :No
+‘min_sale_qty’ => 1, //Min Qty Allowed in Shopping Cart
+‘max_sale_qty’ => 1  //Max Qty Allowed in Shopping Cart
+)
+);
