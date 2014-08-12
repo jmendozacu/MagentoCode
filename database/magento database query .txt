@@ -1,0 +1,14 @@
+https://fishpig.co.uk/magento/tutorials/direct-sql-queries/
+https://www.fontis.com.au/blog/magento/direct-sql-queries-magento
+
+
+
+					<?php
+						$conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+						
+ 
+						$results = $conn->fetchAll("SELECT * FROM catalog_product_entity;");
+						foreach($results as $row) {
+							echo $row['entity_id'] . "\n";
+						}
+					?>

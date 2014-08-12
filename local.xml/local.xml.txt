@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+<default>
+    <reference name="head">
+		<action method="addItem">
+            <type>skin_js</type>
+            <name>js/jquery.js</name>
+            <params/>
+        </action>
+		<action method="addItem">
+            <type>skin_js</type>
+            <name>js/my_js.js</name>
+            <params/>
+        </action>	
+	    <action method="addItem">
+            <type>skin_css</type>
+            <name>css/mycss.css</name>
+        </action>
+	
+<!--         <action method="addItem">
+            <type>skin_js</type>
+            <name>js/my_js.js</name>
+            <params/>
+        </action>
+        <action method="addItem">
+            <type>skin_css</type>
+            <name>css/my_styles.css</name>
+        </action>
+        <action method="removeItem">
+            <type>skin_css</type>
+            <name>css/brandext/slider.css</name>
+        </action>
+        <action method="removeItem">
+            <type>js</type>
+            <name>some_ext/jquery-1.4.2.js</name>
+        </action> -->
+    </reference>
+</default>
+</layout>

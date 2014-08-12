@@ -1,0 +1,29 @@
+<?php 
+$customerName = Mage::helper('customer')->getCustomerName();
+if(Mage::getSingleton('customer/session')->isLoggedIn())
+{
+/* Get the customer data */
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    /* Get the customer's full name */
+    $fullname = $customer->getName();
+    /* Get the customer's first name */
+    $firstname = $customer->getFirstname();
+    /* Get the customer's last name */
+    $lastname = $customer->getLastname();
+    /* Get the customer's email address */
+    $email = $customer->getEmail();
+ ?>
+
+ 	<ul id='top_menus_ul' style='margin-left: -20px;'>
+		<li id='bor' style='padding-left: 34px;'><a href='http://archmagento.com/pensonicclone/index.php/checkout/cart/'>Cart</a></li>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'><?php echo $firstname; ?></a></li>
+		<li><a href='<?php echo Mage::getBaseUrl()."customer/account/logout/'"; ?>'>Logout</a></li>
+	</ul>
+
+<?php }else{ ?>
+	<ul id='top_menus_ul'>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'>Staff login</a></li>
+		<li id='bor'><a href='http://archmagento.com/pensonicclone/index.php/customer/account/login/'>Login</a></li>
+		<li><a href='http://archmagento.com/pensonicclone/index.php/customer/account/create/'>Register</a></li>
+	</ul>
+<?php } ?>

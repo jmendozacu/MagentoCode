@@ -1,0 +1,1 @@
+remove the htaccess or rename inside the media folder

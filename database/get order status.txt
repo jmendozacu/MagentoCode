@@ -1,0 +1,10 @@
+						
+						
+						
+	//check order status ID
+	$orderID = ang order id ni
+	
+	
+	$get_all_product_statusStatus = mysql_query("select status from sales_flat_order_grid where increment_id = '$orderID' ");	
+	$rowStatus = mysql_fetch_array($get_all_product_statusStatus);
+	 $Status = $rowStatus['status'];

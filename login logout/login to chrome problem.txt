@@ -1,0 +1,14 @@
+I think there is the problem with session cookie with the chrome browser. So just go through this directory /app/code/core/Mage/Core/Model/Session/Abstract/Varien.php file and comment out the line from 85 to 92 in magento (1.7.2 for my case). Like this
+
+    // session cookie params
+   /* $cookieParams = array(
+        'lifetime' => $cookie->getLifetime(),
+        'path'     => $cookie->getPath(),
+        'domain'   => $cookie->getConfigDomain(),
+        'secure'   => $cookie->isSecure(),
+        'httponly' => $cookie->getHttponly()
+    );
+  */
+after that try to make login from your backend. Hopefully you can make login with chrome. This will definitely help you. If you are still facing the problem then just reply me.
+
+http://stackoverflow.com/questions/15491819/magento-admin-login-not-working-in-chrome-but-works-fine-for-firefox

@@ -1,0 +1,15 @@
+1. export one product the you want single product or downloadable
+
+2. edit 
+	for the images:
+	
+	images
+	blue.jpg
+	
+	_media_attribute_id				_media_image
+	this id must be the same		blue.jpg
+	
+3. create folder to media/import
+	past blue.jpg
+	
+4. import csv
